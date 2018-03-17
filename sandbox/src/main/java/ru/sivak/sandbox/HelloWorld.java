@@ -1,6 +1,6 @@
-package ru.sivak.Hello_World;
+package ru.sivak.sandbox;
 
-public class Hello_World {
+public class HelloWorld {
 
 	public static void main(String[] args) {
 		System.out.println("Hello World");
