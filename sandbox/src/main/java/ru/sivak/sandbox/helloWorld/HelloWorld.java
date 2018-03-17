@@ -1,4 +1,4 @@
-package ru.sivak.sandbox;
+package ru.sivak.sandbox.helloWorld;
 
 public class HelloWorld {
 
