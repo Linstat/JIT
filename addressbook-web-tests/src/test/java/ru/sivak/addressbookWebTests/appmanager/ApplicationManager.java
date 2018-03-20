@@ -1,10 +1,10 @@
-package ru.sivak.addressbookWebTests;
+package ru.sivak.addressbookWebTests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import ru.sivak.addressbookWebTests.model.NewContactParameters;
+import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,27 +12,14 @@ import java.util.concurrent.TimeUnit;
  * @author p.sivak.
  * @since 20.03.2018.
  */
-public class TestBase {
-    FirefoxDriver wd;
+public class ApplicationManager {
+    public FirefoxDriver wd;
 
-    @BeforeMethod
-    public void setUp() {
-        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:\\Users\\p.sivak\\AppData\\Local\\Mozilla Firefox\\firefox.exe"));
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        login("admin", "secret");
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        logout();
-        wd.quit();
-    }
-
-    private void logout() {
+    public void logout() {
         wd.findElement(By.linkText("Logout")).click();
     }
 
-    private void login(String login, String password) {
+    public void login(String login, String password) {
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).click();
@@ -44,19 +31,19 @@ public class TestBase {
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
-    protected void clickHome() {
+    public void clickHome() {
         wd.findElement(By.linkText("home")).click();
     }
 
-    protected void clickHomePage() {
+    public void clickHomePage() {
         wd.findElement(By.linkText("home page")).click();
     }
 
-    protected void clickEnter() {
+    public void clickEnter() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    protected void fillNewContact(NewContactParameters newContactParameters) {
+    public void fillNewContact(NewContactParameters newContactParameters) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(newContactParameters.getFirst());
@@ -74,19 +61,19 @@ public class TestBase {
         wd.findElement(By.name("email")).sendKeys(newContactParameters.getEmail());
     }
 
-    protected void clickAddNew() {
+    public void clickAddNew() {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    protected void clickGroupPage() {
+    public void clickGroupPage() {
         wd.findElement(By.linkText("group page")).click();
     }
 
-    protected void clickSubmit() {
+    public void clickSubmit() {
         wd.findElement(By.name("submit")).click();
     }
 
-    protected void fillNewGroup(NewGroupParameters newGroupParameters) {
+    public void fillNewGroup(NewGroupParameters newGroupParameters) {
         wd.findElement(By.name("group_name")).click();
         wd.findElement(By.name("group_name")).clear();
         wd.findElement(By.name("group_name")).sendKeys(newGroupParameters.getName());
@@ -98,27 +85,38 @@ public class TestBase {
         wd.findElement(By.name("group_footer")).sendKeys(newGroupParameters.getFoot());
     }
 
-    protected void clickNewGroup() {
+    public void clickNewGroup() {
         wd.findElement(By.name("new")).click();
     }
 
-    protected void clickGroups() {
+    public void clickGroups() {
         wd.findElement(By.linkText("groups")).click();
     }
 
-    protected void ClickDeleteContact() {
+    public void ClickDeleteContact() {
         wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
     }
 
-    protected void clickCheckBox() {
+    public void clickCheckBox() {
         wd.findElement(By.name("selected[]")).click();
     }
 
-    protected void acceptAlert() {
+    public void acceptAlert() {
         wd.switchTo().alert().accept();
     }
 
-    protected void clickDeleteGroup() {
+    public void clickDeleteGroup() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[5]")).click();
+    }
+
+    public void stop() {
+        logout();
+        wd.quit();
+    }
+
+    public void init() {
+        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:\\Users\\p.sivak\\AppData\\Local\\Mozilla Firefox\\firefox.exe"));
+        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        login("admin", "secret");
     }
 }

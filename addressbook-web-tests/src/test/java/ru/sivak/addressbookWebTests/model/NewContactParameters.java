@@ -1,4 +1,4 @@
-package ru.sivak.addressbookWebTests;
+package ru.sivak.addressbookWebTests.model;
 
 public class NewContactParameters {
     private final String first;
