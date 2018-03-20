@@ -38,4 +38,11 @@ public class ContactHelper extends HelperBase {
         acceptAlert();
     }
 
+    public void clickEdit() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    }
+
+    public void clickUpdate() {
+        click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+    }
 }
