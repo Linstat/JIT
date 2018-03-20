@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
 
     public FirefoxDriver wd;
-    private OperationHelper operationHelper;
     private ContactHelper contactHelper;
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
@@ -20,13 +19,12 @@ public class ApplicationManager {
     }
 
     public void init() {
-        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:\\Users\\p.sivak\\AppData\\Local\\Mozilla Firefox\\firefox.exe"));
+        wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         contactHelper = new ContactHelper(wd);
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
-        operationHelper = new OperationHelper(wd);
         sessionHelper.login("admin", "secret");
     }
 
@@ -42,7 +40,4 @@ public class ApplicationManager {
         return contactHelper;
     }
 
-    public OperationHelper getOperationHelper() {
-        return operationHelper;
-    }
 }
