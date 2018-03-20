@@ -7,10 +7,10 @@ public class NewContactTest extends TestBase {
 
     @Test
     public void createNewContact() {
-        addNew();
+        clickAddNew();
         fillNewContact(new NewContactParameters("Test", "Testovich", "Testov", "866666666666", "test@test.test"));
-        enter();
-        homePage();
+        clickEnter();
+        clickHomePage();
     }
 
 }

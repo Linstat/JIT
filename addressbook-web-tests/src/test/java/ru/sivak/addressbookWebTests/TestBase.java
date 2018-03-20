@@ -44,11 +44,15 @@ public class TestBase {
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
-    protected void homePage() {
+    protected void clickHome() {
+        wd.findElement(By.linkText("home")).click();
+    }
+
+    protected void clickHomePage() {
         wd.findElement(By.linkText("home page")).click();
     }
 
-    protected void enter() {
+    protected void clickEnter() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
@@ -70,15 +74,15 @@ public class TestBase {
         wd.findElement(By.name("email")).sendKeys(newContactParameters.getEmail());
     }
 
-    protected void addNew() {
+    protected void clickAddNew() {
         wd.findElement(By.linkText("add new")).click();
     }
 
-    protected void groupPage() {
+    protected void clickGroupPage() {
         wd.findElement(By.linkText("group page")).click();
     }
 
-    protected void submit() {
+    protected void clickSubmit() {
         wd.findElement(By.name("submit")).click();
     }
 
@@ -98,11 +102,11 @@ public class TestBase {
         wd.findElement(By.name("new")).click();
     }
 
-    protected void goToGroup() {
+    protected void clickGroups() {
         wd.findElement(By.linkText("groups")).click();
     }
 
-    protected void deleteContact() {
+    protected void ClickDeleteContact() {
         wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
     }
 

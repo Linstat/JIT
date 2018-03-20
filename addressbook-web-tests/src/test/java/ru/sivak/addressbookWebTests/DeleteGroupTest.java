@@ -6,10 +6,10 @@ public class DeleteGroupTest extends TestBase {
 
     @Test
     public void testDeleteGroup() {
-        goToGroup();
+        clickGroups();
         clickCheckBox();
         clickDeleteGroup();
-        groupPage();
+        clickGroupPage();
     }
 
 }

@@ -7,11 +7,11 @@ public class NewGroupTest extends TestBase {
 
     @Test
     public void createNewGroup() {
-        goToGroup();
+        clickGroups();
         clickNewGroup();
         fillNewGroup(new NewGroupParameters("TestName", "TestHead", "TestFoot"));
-        submit();
-        groupPage();
+        clickSubmit();
+        clickGroupPage();
     }
 
 }
