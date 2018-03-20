@@ -101,4 +101,20 @@ public class TestBase {
     protected void goToGroup() {
         wd.findElement(By.linkText("groups")).click();
     }
+
+    protected void deleteContact() {
+        wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
+    }
+
+    protected void clickCheckBox() {
+        wd.findElement(By.name("selected[]")).click();
+    }
+
+    protected void acceptAlert() {
+        wd.switchTo().alert().accept();
+    }
+
+    protected void clickDeleteGroup() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[5]")).click();
+    }
 }
