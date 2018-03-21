@@ -1,5 +1,6 @@
 package ru.sivak.addressbookWebTests.tests;
 
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.sivak.addressbookWebTests.appmanager.ApplicationManager;
@@ -14,7 +15,7 @@ public class TestBase {
 
     @BeforeMethod
     public void setUp() {
-        app.init();
+        app.init(BrowserType.FIREFOX);
     }
 
     @AfterMethod
