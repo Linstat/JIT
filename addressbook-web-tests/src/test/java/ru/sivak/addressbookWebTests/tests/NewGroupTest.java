@@ -10,7 +10,7 @@ public class NewGroupTest extends TestBase {
     public void createNewGroup() {
         app.getNavigationHelper().clickGroups();
         app.getGroupHelper().clickNewGroup();
-        app.getGroupHelper().fillNewGroup(new NewGroupParameters("TestName", "TestHead", "TestFoot"));
+        app.getGroupHelper().fillNewGroup(new NewGroupParameters("TestName", null, null));
         app.getGroupHelper().clickSubmit();
         app.getGroupHelper().clickGroupPage();
     }
