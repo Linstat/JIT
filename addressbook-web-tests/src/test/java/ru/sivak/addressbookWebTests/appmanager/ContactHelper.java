@@ -29,7 +29,9 @@ public class ContactHelper extends HelperBase {
         fillField(By.name("mobile"), newContactParameters.getMobile());
         fillField(By.name("email"), newContactParameters.getEmail());
         if (creation){
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactParameters.getGroup());
+            if (newContactParameters.getGroup()!=null) {
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactParameters.getGroup());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
