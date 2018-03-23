@@ -10,7 +10,7 @@ public class EditContactTest extends TestBase {
         app.getNavigationHelper().clickHome();
         app.getContactHelper().selectContact("selected[]");
         app.getContactHelper().clickEdit();
-        app.getContactHelper().fillNewContact(new NewContactParameters("Edit", "Editovich", "Editov", "97777777777", "edit@edit.edit"));
+        app.getContactHelper().fillNewContact(new NewContactParameters("Edit", "Editovich", "Editov", "97777777777", "edit@edit.edit", null),false);
         app.getContactHelper().clickUpdate();
         app.getContactHelper().clickHomePage();
     }
