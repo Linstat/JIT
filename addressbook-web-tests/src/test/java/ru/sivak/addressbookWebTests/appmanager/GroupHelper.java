@@ -7,6 +7,7 @@ import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 public class GroupHelper extends HelperBase {
 
+
     public GroupHelper(WebDriver wd) {
         super(wd);
     }
@@ -36,12 +37,22 @@ public class GroupHelper extends HelperBase {
     public void selectGroup(String name) {
         click(By.name(name));
     }
-
     public void clickEdit() {
         click(By.name("edit"));
     }
 
     public void clickUpdate() {
         click(By.name("update"));
+    }
+
+    public void createGroup(NewGroupParameters group) {
+        clickNewGroup();
+        fillNewGroup(group);
+        clickSubmit();
+        clickGroupPage();
+    }
+
+    public boolean isGroupHere() {
+        return isElementPresent(By.name("selected[]"));
     }
 }

@@ -3,16 +3,15 @@ package ru.sivak.addressbookWebTests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class HelperBase {
-    protected WebDriver wd;
+    public WebDriver wd;
 
     public HelperBase(WebDriver wd) {
         this.wd = wd;
     }
 
-    protected void fillField(By locator, String text) {
+    public void fillField(By locator, String text) {
         click(locator);
         if (text != null){
             String existingText = wd.findElement(locator).getAttribute("value");
@@ -23,19 +22,19 @@ public class HelperBase {
         }
     }
 
-    protected void click(By locator) {
+    public void click(By locator) {
         wd.findElement(locator).click();
     }
 
-    protected void getURL(String url) {
+    public void getURL(String url) {
         wd.get(url);
     }
 
-    protected void acceptAlert() {
+    public void acceptAlert() {
         wd.switchTo().alert().accept();
     }
 
-    protected boolean isElementPresent(By locator) {
+    public boolean isElementPresent(By locator) {
         try {
             wd.findElement(locator);
             return true;

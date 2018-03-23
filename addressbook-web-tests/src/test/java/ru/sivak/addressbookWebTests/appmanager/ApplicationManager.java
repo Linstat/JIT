@@ -11,10 +11,10 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
 
     public WebDriver wd;
-    private ContactHelper contactHelper;
-    private SessionHelper sessionHelper;
-    private NavigationHelper navigationHelper;
-    private GroupHelper groupHelper;
+    public ContactHelper contactHelper;
+    public SessionHelper sessionHelper;
+    public NavigationHelper navigationHelper;
+    public GroupHelper groupHelper;
 
     public void stop() {
         sessionHelper.logout();
