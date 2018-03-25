@@ -46,4 +46,8 @@ public class HelperBase {
     public int getCount(String name) {
         return wd.findElements(By.name(name)).size();
     }
+
+    public void selectElement (String name, int index) {
+        wd.findElements(By.name(name)).get(index).click();
+    }
 }

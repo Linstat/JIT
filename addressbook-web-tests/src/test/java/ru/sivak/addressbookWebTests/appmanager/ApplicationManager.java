@@ -13,8 +13,9 @@ public class ApplicationManager {
     public WebDriver wd;
     public ContactHelper contactHelper;
     public SessionHelper sessionHelper;
-    public NavigationHelper navigationHelper;
+    public NavigationHelper NavigationHelper;
     public GroupHelper groupHelper;
+    public MathHelper mathHelper;
 
     public void stop() {
         sessionHelper.logout();
@@ -32,8 +33,9 @@ public class ApplicationManager {
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         contactHelper = new ContactHelper(wd);
         groupHelper = new GroupHelper(wd);
-        navigationHelper = new NavigationHelper(wd);
+        NavigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
+        mathHelper = new MathHelper(wd);
         sessionHelper.login("admin", "secret");
     }
 
@@ -42,11 +44,15 @@ public class ApplicationManager {
     }
 
     public NavigationHelper getNavigationHelper() {
-        return navigationHelper;
+        return NavigationHelper;
     }
 
     public ContactHelper getContactHelper() {
         return contactHelper;
+    }
+
+    public MathHelper getMathHelper () {
+        return mathHelper;
     }
 
 }

@@ -33,9 +33,10 @@ public class GroupHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[5]"));
     }
 
-    public void selectGroup(String name) {
-        click(By.name(name));
+    public void selectGroup(int number) {
+        selectElement("selected[]", number);
     }
+
     public void clickEdit() {
         click(By.name("edit"));
     }
