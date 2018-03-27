@@ -10,7 +10,7 @@ public class EditGroupTest extends TestBase {
         app.getNavigationHelper().clickGroups();
         app.getGroupHelper().selectGroup("selected[]");
         app.getGroupHelper().clickEdit();
-        app.getGroupHelper().fillNewGroup(new NewGroupParameters("EditedName", "EditedHead", "EditedFoot"));
+        app.getGroupHelper().fillNewGroup(new NewGroupParameters("1234", "1234", "1234"));
         app.getGroupHelper().clickUpdate();
         app.getGroupHelper().clickGroupPage();
     }

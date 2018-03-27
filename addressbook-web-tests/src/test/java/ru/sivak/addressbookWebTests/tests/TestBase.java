@@ -15,7 +15,7 @@ public class TestBase {
 
     @BeforeMethod
     public void setUp() {
-        app.init(BrowserType.FIREFOX);
+        app.init(BrowserType.CHROME);
     }
 
     @AfterMethod

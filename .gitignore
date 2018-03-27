@@ -70,3 +70,8 @@ sandbox/.idea/modules/sandbox_test.iml
 sandbox/.idea/vcs.xml
 sandbox/.idea/workspace.xml
 sandbox/sandbox.iml
+addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/TestBase.java
+addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/EditGroupTest.java
+addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/EditGroupTest.java
+addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/TestBase.java
+addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/TestBase.java
