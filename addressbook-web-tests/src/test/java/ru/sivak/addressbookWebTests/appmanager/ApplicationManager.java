@@ -11,10 +11,11 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
 
     public WebDriver wd;
-    private ContactHelper contactHelper;
-    private SessionHelper sessionHelper;
-    private NavigationHelper navigationHelper;
-    private GroupHelper groupHelper;
+    public ContactHelper contactHelper;
+    public SessionHelper sessionHelper;
+    public NavigationHelper NavigationHelper;
+    public GroupHelper groupHelper;
+    public MathHelper mathHelper;
 
     public void stop() {
         sessionHelper.logout();
@@ -29,11 +30,12 @@ public class ApplicationManager {
         } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         }
-        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         contactHelper = new ContactHelper(wd);
         groupHelper = new GroupHelper(wd);
-        navigationHelper = new NavigationHelper(wd);
+        NavigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
+        mathHelper = new MathHelper(wd);
         sessionHelper.login("admin", "secret");
     }
 
@@ -42,11 +44,15 @@ public class ApplicationManager {
     }
 
     public NavigationHelper getNavigationHelper() {
-        return navigationHelper;
+        return NavigationHelper;
     }
 
     public ContactHelper getContactHelper() {
         return contactHelper;
+    }
+
+    public MathHelper getMathHelper () {
+        return mathHelper;
     }
 
 }

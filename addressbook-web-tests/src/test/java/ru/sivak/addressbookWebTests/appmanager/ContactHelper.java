@@ -1,9 +1,7 @@
 package ru.sivak.addressbookWebTests.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
@@ -41,8 +39,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 
-    public void selectContact(String name) {
-        click(By.name(name));
+    public void selectContact(int number) {
+        selectElement("selected[]", number);
     }
 
     public void acceptDelete() {
@@ -55,5 +53,19 @@ public class ContactHelper extends HelperBase {
 
     public void clickUpdate() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+    }
+
+    public void createContact(NewContactParameters contact, boolean creation) {
+        fillNewContact(contact, creation);
+        clickEnter();
+        clickHomePage();
+    }
+
+    public boolean isContactHere() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getContactCount() {
+        return getCount("selected[]");
     }
 }

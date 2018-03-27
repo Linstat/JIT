@@ -2,10 +2,10 @@ package ru.sivak.addressbookWebTests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 public class GroupHelper extends HelperBase {
+
 
     public GroupHelper(WebDriver wd) {
         super(wd);
@@ -33,8 +33,8 @@ public class GroupHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[5]"));
     }
 
-    public void selectGroup(String name) {
-        click(By.name(name));
+    public void selectGroup(int number) {
+        selectElement("selected[]", number);
     }
 
     public void clickEdit() {
@@ -43,5 +43,20 @@ public class GroupHelper extends HelperBase {
 
     public void clickUpdate() {
         click(By.name("update"));
+    }
+
+    public void createGroup(NewGroupParameters group) {
+        clickNewGroup();
+        fillNewGroup(group);
+        clickSubmit();
+        clickGroupPage();
+    }
+
+    public boolean isGroupHere() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getGroupCount() {
+        return getCount("selected[]");
     }
 }
