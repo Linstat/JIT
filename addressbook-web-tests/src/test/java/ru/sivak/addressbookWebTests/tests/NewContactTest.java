@@ -12,9 +12,7 @@ public class NewContactTest extends TestBase {
         app.getNavigationHelper().clickHome();
         int before = app.getContactHelper().getContactCount();
         app.getNavigationHelper().clickAddNew();
-        app.getContactHelper().fillNewContact(new NewContactParameters("Test", "Test", "Test", "Test", "Test", null), true);
-        app.getContactHelper().clickEnter();
-        app.getContactHelper().clickHomePage();
+        app.getContactHelper().createContact(new NewContactParameters("Test","Test","Test","321654",null, null),true);
         int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after, before + 1);
     }

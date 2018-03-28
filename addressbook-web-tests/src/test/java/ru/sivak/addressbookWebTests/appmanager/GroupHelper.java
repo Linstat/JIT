@@ -2,7 +2,11 @@ package ru.sivak.addressbookWebTests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupHelper extends HelperBase {
 
@@ -58,5 +62,16 @@ public class GroupHelper extends HelperBase {
 
     public int getGroupCount() {
         return getCount("selected[]");
+    }
+
+    public List<NewGroupParameters> getGroupList() {
+        List<NewGroupParameters> groups = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement element : elements) {
+            String name = element.getText();
+            NewGroupParameters group = new NewGroupParameters(name, null, null);
+            groups.add(group);
+        }
+        return groups;
     }
 }
