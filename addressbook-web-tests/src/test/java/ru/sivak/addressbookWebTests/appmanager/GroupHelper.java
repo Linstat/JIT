@@ -60,10 +60,6 @@ public class GroupHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public int getGroupCount() {
-        return getCount("selected[]");
-    }
-
     public List<NewGroupParameters> getGroupList() {
         List<NewGroupParameters> groups = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));

@@ -2,9 +2,13 @@ package ru.sivak.addressbookWebTests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -67,5 +71,16 @@ public class ContactHelper extends HelperBase {
 
     public int getContactCount() {
         return getCount("selected[]");
+    }
+
+    public List<NewContactParameters> getContactList() {
+        List<NewContactParameters> contacts = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']/td[2]"));
+        for (WebElement element : elements){
+            String name = element.getText();
+            NewContactParameters contact = new NewContactParameters(name,null,null,null,null,null);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
