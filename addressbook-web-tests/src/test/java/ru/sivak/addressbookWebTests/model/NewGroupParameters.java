@@ -6,7 +6,7 @@ public class NewGroupParameters {
     private final String name;
     private final String head;
     private final String foot;
-    private String id;
+    private int id;
 
     @Override
     public boolean equals(Object o) {
@@ -31,11 +31,11 @@ public class NewGroupParameters {
                 '}';
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public NewGroupParameters(String id, String name, String head, String foot) {
+    public NewGroupParameters(int id, String name, String head, String foot) {
         this.name = name;
         this.head = head;
         this.foot = foot;
@@ -46,7 +46,7 @@ public class NewGroupParameters {
         this.name = name;
         this.head = head;
         this.foot = foot;
-        this.id = null;
+        this.id = 0;
     }
 
     public String getName() {
@@ -61,7 +61,7 @@ public class NewGroupParameters {
         return foot;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
