@@ -4,9 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class EditContactTest extends TestBase {
+    int random;
 
     @Test
     public void testEditContact() {
@@ -16,12 +18,16 @@ public class EditContactTest extends TestBase {
             app.getContactHelper().createContact(new NewContactParameters("TestName", null, null,null,null,null), true);
         }
         List<NewContactParameters> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(app.getMathHelper().getRandom(0,before.size()));
-        app.getContactHelper().clickEdit();
-        app.getContactHelper().fillNewContact(new NewContactParameters("Edit", "Editovich", "Editov", "97777777777", "edit@edit.edit", "1234"),false);
+        random = app.getMathHelper().getRandom(1,before.size());
+        app.getContactHelper().clickEdit(random);
+        NewContactParameters contact = new NewContactParameters("Edit", "Editovich", "Editov", "97777777777", "edit@edit.edit", null);
+        app.getContactHelper().fillNewContact(contact,false);
         app.getContactHelper().clickUpdate();
         app.getContactHelper().clickHomePage();
         List<NewContactParameters> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
+        before.remove(random);
+        before.add(contact);
+        Assert.assertEquals(new HashSet<>(after),new HashSet<>(before));
     }
 }

@@ -51,8 +51,10 @@ public class ContactHelper extends HelperBase {
         acceptAlert();
     }
 
-    public void clickEdit() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    public void clickEdit(int number) {
+        WebElement element = wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr["+(number+1)+"]/td[1]"));
+        String id = element.findElement(By.tagName("input")).getAttribute("id");
+        click(By.xpath("//a[@href='edit.php?id="+id+"']"));
     }
 
     public void clickUpdate() {
@@ -75,10 +77,14 @@ public class ContactHelper extends HelperBase {
 
     public List<NewContactParameters> getContactList() {
         List<NewContactParameters> contacts = new ArrayList<>();
-        List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']/td[2]"));
+        List<WebElement> elements = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
         for (WebElement element : elements){
-            String name = element.getText();
-            NewContactParameters contact = new NewContactParameters(name,null,null,null,null,null);
+            String name = element.findElement(By.xpath("td[2]")).getText();
+            String middle = element.findElement(By.xpath("td[3]")).getText();
+            String last = element.findElement(By.xpath("td[4]")).getText();
+            String mobile = element.findElement(By.xpath("td[6]")).getText();
+            String email = element.findElement(By.xpath("td[5]/a")).getText();
+            NewContactParameters contact = new NewContactParameters(name,middle,last,mobile,email,null);
             contacts.add(contact);
         }
         return contacts;
