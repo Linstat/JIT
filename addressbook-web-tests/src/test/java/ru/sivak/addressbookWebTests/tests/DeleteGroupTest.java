@@ -16,7 +16,7 @@ public class DeleteGroupTest extends TestBase {
             app.getGroupHelper().createGroup(new NewGroupParameters("TestName", null, null));
         }
         List<NewGroupParameters> before = app.getGroupHelper().getGroupList();
-        random = app.getMathHelper().getRandom(0,before.size());
+        random = app.getMathHelper().getRandom(0,(before.size()-1));
         app.getGroupHelper().selectGroup(random);
         app.getGroupHelper().clickDeleteGroup();
         app.getGroupHelper().clickGroupPage();

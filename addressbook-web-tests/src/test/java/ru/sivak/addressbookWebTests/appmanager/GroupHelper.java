@@ -41,6 +41,10 @@ public class GroupHelper extends HelperBase {
         selectElement("selected[]", number);
     }
 
+    public int getGroupCount() {
+        return getCount("selected[]");
+    }
+
     public void clickEdit() {
         click(By.name("edit"));
     }

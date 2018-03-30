@@ -4,59 +4,31 @@ import java.util.Objects;
 
 public class NewContactParameters {
     private final String first;
-    private final String middle;
     private final String last;
     private final String mobile;
     private final String email;
-
     private String group;
+    private int id;
 
-    @Override
-    public String toString() {
-        return "NewContactParameters{" +
-                "first='" + first + '\'' +
-                ", middle='" + middle + '\'' +
-                ", last='" + last + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", email='" + email + '\'' +
-                ", group='" + group + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NewContactParameters that = (NewContactParameters) o;
-        return Objects.equals(first, that.first) &&
-                Objects.equals(middle, that.middle) &&
-                Objects.equals(last, that.last) &&
-                Objects.equals(mobile, that.mobile) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(group, that.group);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(first, middle, last, mobile, email, group);
-    }
-
-    public NewContactParameters(String first, String middle, String last, String mobile, String email, String group) {
+    public NewContactParameters(String first, String last, String mobile, String email, String group) {
         this.first = first;
-        this.middle = middle;
         this.last = last;
         this.mobile = mobile;
         this.email = email;
         this.group = group;
     }
 
-    public String getFirst() {
-        return first;
+    public NewContactParameters(int id, String first, String last, String mobile, String email, String group) {
+        this.first = first;
+        this.last = last;
+        this.mobile = mobile;
+        this.email = email;
+        this.group = group;
+        this.id = id;
     }
 
-    public String getMiddle() {
-        return middle;
+    public String getFirst() {
+        return first;
     }
 
     public String getLast() {
@@ -73,5 +45,44 @@ public class NewContactParameters {
 
     public String getGroup() {
         return group;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewContactParameters that = (NewContactParameters) o;
+        return id == that.id &&
+                Objects.equals(first, that.first) &&
+                Objects.equals(last, that.last) &&
+                Objects.equals(mobile, that.mobile) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(group, that.group);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(first, last, mobile, email, group, id);
+    }
+
+    @Override
+    public String toString() {
+        return "NewContactParameters{" +
+                "first='" + first + '\'' +
+                ", last='" + last + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", group='" + group + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

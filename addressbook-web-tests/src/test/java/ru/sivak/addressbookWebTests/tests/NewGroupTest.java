@@ -26,7 +26,7 @@ public class NewGroupTest extends TestBase {
         }
         group.setId(max);
         before.add(group);
-        Assert.assertEquals(new HashSet<>(before),new HashSet<>(after));
+        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
     }
 
 }

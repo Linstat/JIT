@@ -15,19 +15,19 @@ public class EditContactTest extends TestBase {
         app.getNavigationHelper().clickHome();
         if (!app.getContactHelper().isContactHere()) {
             app.getNavigationHelper().clickAddNew();
-            app.getContactHelper().createContact(new NewContactParameters("TestName", null, null,null,null,null), true);
+            app.getContactHelper().createContact(new NewContactParameters("TestName", null, null,null,null), true);
         }
         List<NewContactParameters> before = app.getContactHelper().getContactList();
         random = app.getMathHelper().getRandom(1,before.size());
         app.getContactHelper().clickEdit(random);
-        NewContactParameters contact = new NewContactParameters("Edit", "Editovich", "Editov", "97777777777", "edit@edit.edit", null);
+        NewContactParameters contact = new NewContactParameters(before.get(random-1).getId(),"First", "Last", "97777777777", "edit@edit.edit", null);
         app.getContactHelper().fillNewContact(contact,false);
         app.getContactHelper().clickUpdate();
         app.getContactHelper().clickHomePage();
         List<NewContactParameters> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
-        before.remove(random);
+        before.remove(random-1);
         before.add(contact);
-        Assert.assertEquals(new HashSet<>(after),new HashSet<>(before));
+        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
     }
 }

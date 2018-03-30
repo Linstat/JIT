@@ -26,7 +26,6 @@ public class ContactHelper extends HelperBase {
 
     public void fillNewContact(NewContactParameters newContactParameters, boolean creation) {
         fillField(By.name("firstname"), newContactParameters.getFirst());
-        fillField(By.name("middlename"), newContactParameters.getMiddle());
         fillField(By.name("lastname"), newContactParameters.getLast());
         fillField(By.name("mobile"), newContactParameters.getMobile());
         fillField(By.name("email"), newContactParameters.getEmail());
@@ -53,7 +52,7 @@ public class ContactHelper extends HelperBase {
 
     public void clickEdit(int number) {
         WebElement element = wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr["+(number+1)+"]/td[1]"));
-        String id = element.findElement(By.tagName("input")).getAttribute("id");
+        int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
         click(By.xpath("//a[@href='edit.php?id="+id+"']"));
     }
 
@@ -78,14 +77,21 @@ public class ContactHelper extends HelperBase {
     public List<NewContactParameters> getContactList() {
         List<NewContactParameters> contacts = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
+        int tdNumber = 2;
         for (WebElement element : elements){
-            String name = element.findElement(By.xpath("td[2]")).getText();
-            String middle = element.findElement(By.xpath("td[3]")).getText();
-            String last = element.findElement(By.xpath("td[4]")).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+            String last = element.findElement(By.xpath("td[2]")).getText();
+            String first = element.findElement(By.xpath("td[3]")).getText();
             String mobile = element.findElement(By.xpath("td[6]")).getText();
-            String email = element.findElement(By.xpath("td[5]/a")).getText();
-            NewContactParameters contact = new NewContactParameters(name,middle,last,mobile,email,null);
+            String email;
+            if (isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr["+tdNumber+"]/td[5]/a"))){
+                email = element.findElement(By.xpath("td[5]/a")).getText();
+            } else {
+                email = null;
+            }
+            NewContactParameters contact = new NewContactParameters(id,first,last,mobile,email,null);
             contacts.add(contact);
+            tdNumber = tdNumber+1;
         }
         return contacts;
     }

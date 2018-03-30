@@ -14,10 +14,10 @@ public class DeleteContactTest extends TestBase {
         app.getNavigationHelper().clickHome();
         if (!app.getContactHelper().isContactHere()) {
             app.getNavigationHelper().clickAddNew();
-            app.getContactHelper().createContact(new NewContactParameters("TestName", null, null,null,null,null), true);
+            app.getContactHelper().createContact(new NewContactParameters("TestName", null, null,null,null), true);
         }
         List<NewContactParameters> before = app.getContactHelper().getContactList();
-        random = app.getMathHelper().getRandom(0,before.size());
+        random = app.getMathHelper().getRandom(0,(before.size()-1));
         app.getContactHelper().selectContact(random);
         app.getContactHelper().ClickDeleteContact();
         app.getContactHelper().acceptDelete();

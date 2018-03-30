@@ -17,7 +17,7 @@ public class EditGroupTest extends TestBase {
             app.getGroupHelper().createGroup(new NewGroupParameters("TestName", null, null));
         }
         List<NewGroupParameters> before = app.getGroupHelper().getGroupList();
-        random = app.getMathHelper().getRandom(0,before.size());
+        random = app.getMathHelper().getRandom(0,(before.size()-1));
         app.getGroupHelper().selectGroup(random);
         app.getGroupHelper().clickEdit();
         NewGroupParameters group = new NewGroupParameters(before.get(random).getId(),"1234", "1234", "1234");
