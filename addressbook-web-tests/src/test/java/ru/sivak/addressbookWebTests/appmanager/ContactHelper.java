@@ -83,12 +83,7 @@ public class ContactHelper extends HelperBase {
             String last = element.findElement(By.xpath("td[2]")).getText();
             String first = element.findElement(By.xpath("td[3]")).getText();
             String mobile = element.findElement(By.xpath("td[6]")).getText();
-            String email;
-            if (isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr["+tdNumber+"]/td[5]/a"))){
-                email = element.findElement(By.xpath("td[5]/a")).getText();
-            } else {
-                email = null;
-            }
+            String email = element.findElement(By.xpath("td[5]")).getText();
             NewContactParameters contact = new NewContactParameters(id,first,last,mobile,email,null);
             contacts.add(contact);
             tdNumber = tdNumber+1;
