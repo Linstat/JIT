@@ -73,12 +73,26 @@ public class NewContactParameters {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NewContactParameters that = (NewContactParameters) o;
-        return Objects.equals(first, that.first) &&
-                Objects.equals(last, that.last) &&
-                Objects.equals(mobile, that.mobile) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(group, that.group);
-    }
+        boolean lastResult = checkResult(last, that.last);
+        boolean mobileResult = checkResult(mobile, that.mobile);
+        boolean emailResult = checkResult(email, that.email);
+        boolean firstResult = checkResult(first, that.first);
+        boolean groupResult = checkResult(group, that.group);
+        return firstResult &&
+                lastResult &&
+                mobileResult &&
+                emailResult &&
+                groupResult;
+        }
+
+    private boolean checkResult(String param1, String param2) {
+        if (param1 == null || param2 == null) {
+            return true;
+            } else {
+                return Objects.equals(param1, param2);
+            }
+        }
+
 
     @Override
     public int hashCode() {

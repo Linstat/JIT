@@ -17,7 +17,7 @@ public class NewContactTest extends TestBase {
         app.getNavigationHelper().clickHome();
         List<NewContactParameters> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().clickAddNew();
-        NewContactParameters contact = new NewContactParameters("Test123","Test123","321654123",null, null);
+        NewContactParameters contact = new NewContactParameters("Test123",null,null,"asdf", null);
         app.getContactHelper().createContact(contact,true);
         List<NewContactParameters> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);

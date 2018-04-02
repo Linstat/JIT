@@ -2,7 +2,9 @@ package ru.sivak.addressbookWebTests.tests;
 
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import ru.sivak.addressbookWebTests.appmanager.ApplicationManager;
 
 /**
@@ -11,14 +13,14 @@ import ru.sivak.addressbookWebTests.appmanager.ApplicationManager;
  */
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager();
+    protected static final ApplicationManager app = new ApplicationManager();
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() {
         app.init(BrowserType.CHROME);
     }
 
-    @AfterMethod
+    @AfterSuite
     public void tearDown() {
         app.stop();
     }
