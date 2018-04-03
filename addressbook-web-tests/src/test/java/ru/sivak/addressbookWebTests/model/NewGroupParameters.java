@@ -57,12 +57,13 @@ public class NewGroupParameters {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NewGroupParameters that = (NewGroupParameters) o;
-        return Objects.equals(name, that.name);
+        return id == that.id &&
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name);
+        return Objects.hash(name, id);
     }
 }

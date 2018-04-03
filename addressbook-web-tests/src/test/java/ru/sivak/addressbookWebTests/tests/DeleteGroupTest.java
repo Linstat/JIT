@@ -6,12 +6,13 @@ import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.util.List;
+import java.util.Set;
 
 public class DeleteGroupTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().groups();
-        if (app.group().list().size()==0) {
+        if (app.group().all().size()==0) {
             app.group().create(new NewGroupParameters().withName("test"));
         }
     }
@@ -20,13 +21,12 @@ public class DeleteGroupTest extends TestBase {
 
     @Test
     public void testDeleteGroup() {
-        List<NewGroupParameters> before = app.group().list();
-        int index;
-        index = app.mathHelper().random(0,(before.size()-1));
-        app.group().delete(index);
-        List<NewGroupParameters> after = app.group().list();
+        Set<NewGroupParameters> before = app.group().all();
+        NewGroupParameters deletedGroup = before.iterator().next();
+        app.group().delete(deletedGroup);
+        Set<NewGroupParameters> after = app.group().all();
         Assert.assertEquals(after.size(), before.size() -1);
-        before.remove(index);
+        before.remove(deletedGroup);
         Assert.assertEquals(after,before);
     }
 

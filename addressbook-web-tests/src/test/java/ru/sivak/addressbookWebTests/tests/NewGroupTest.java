@@ -6,6 +6,7 @@ import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 
 public class NewGroupTest extends TestBase {
@@ -13,15 +14,13 @@ public class NewGroupTest extends TestBase {
     @Test
     public void createNewGroup() {
         app.goTo().groups();
-        List<NewGroupParameters> before = app.group().list();
+        Set<NewGroupParameters> before = app.group().all();
         NewGroupParameters group = new NewGroupParameters().withName("test");
         app.group().create(group);
-        List<NewGroupParameters> after = app.group().list();
+        Set<NewGroupParameters> after = app.group().all();
         Assert.assertEquals(after.size(), before.size() + 1);
+        group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt());
         before.add(group);
-        Comparator<? super NewGroupParameters> byId = Comparator.comparingInt(NewGroupParameters::getId);
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(before,after);
     }
 

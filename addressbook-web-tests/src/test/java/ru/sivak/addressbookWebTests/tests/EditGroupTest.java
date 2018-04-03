@@ -12,26 +12,22 @@ public class EditGroupTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().groups();
-        if (app.group().list().size()==0) {
+        if (app.group().all().size()==0) {
             app.group().create(new NewGroupParameters().withName("test"));
         }
     }
 
     @Test
     public void testEditGroup() {
-        List<NewGroupParameters> before = app.group().list();
-        int index;
-        index = app.mathHelper().random(0,(before.size()-1));
-        NewGroupParameters group = new NewGroupParameters().withId(before.get(index).getId())
+        Set<NewGroupParameters> before = app.group().all();
+        NewGroupParameters editedGroup = before.iterator().next();
+        NewGroupParameters group = new NewGroupParameters().withId(editedGroup.getId())
                 .withName("test").withFoot("testf").withHead("testh");
-        app.group().edit(index, group);
-        List<NewGroupParameters> after = app.group().list();
+        app.group().edit(group);
+        Set<NewGroupParameters> after = app.group().all();
         Assert.assertEquals(after.size(), before.size());
-        before.remove(index);
+        before.remove(editedGroup);
         before.add(group);
-        Comparator<? super NewGroupParameters> byId = Comparator.comparingInt(NewGroupParameters::getId);
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(before,after);
     }
 

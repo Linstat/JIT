@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -41,6 +43,10 @@ public class GroupHelper extends HelperBase {
         selectElement("selected[]", number);
     }
 
+    public void selectGroupById(int id) {
+        wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
+    }
+
     public int getGroupCount() {
         return getCount("selected[]");
     }
@@ -60,11 +66,17 @@ public class GroupHelper extends HelperBase {
         clickGroupPage();
     }
 
-    public void edit(int index, NewGroupParameters group) {
-        selectGroup(index);
+    public void edit(NewGroupParameters group) {
+        selectGroupById(group.getId());
         clickEdit();
         fillNewGroup(group);
         clickUpdate();
+        clickGroupPage();
+    }
+
+    public void delete(NewGroupParameters group) {
+        selectGroupById(group.getId());
+        clickDeleteGroup();
         clickGroupPage();
     }
 
@@ -80,6 +92,17 @@ public class GroupHelper extends HelperBase {
 
     public List<NewGroupParameters> list() {
         List<NewGroupParameters> groups = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement element : elements) {
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            groups.add(new NewGroupParameters().withId(id).withName(name));
+        }
+        return groups;
+    }
+
+    public Set<NewGroupParameters> all() {
+        Set<NewGroupParameters> groups = new HashSet<NewGroupParameters>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
