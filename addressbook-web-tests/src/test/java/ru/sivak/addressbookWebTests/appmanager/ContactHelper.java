@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.sivak.addressbookWebTests.model.Contacts;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 
 import java.util.HashSet;
@@ -78,8 +79,8 @@ public class ContactHelper extends HelperBase {
         acceptDelete();
     }
 
-    public Set<NewContactParameters> all() {
-        Set<NewContactParameters> contacts = new HashSet<NewContactParameters>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
