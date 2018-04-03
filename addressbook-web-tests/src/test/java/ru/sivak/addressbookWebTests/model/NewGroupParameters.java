@@ -3,10 +3,10 @@ package ru.sivak.addressbookWebTests.model;
 import java.util.Objects;
 
 public class NewGroupParameters {
-    private final String name;
-    private final String head;
-    private final String foot;
-    private int id;
+    private String name;
+    private String head;
+    private String foot;
+    private int id = Integer.MAX_VALUE;
 
     @Override
     public String toString() {
@@ -20,21 +20,7 @@ public class NewGroupParameters {
         return id;
     }
 
-    public NewGroupParameters(int id, String name, String head, String foot) {
-        this.name = name;
-        this.head = head;
-        this.foot = foot;
-        this.id = id;
-    }
-
-    public NewGroupParameters( String name, String head, String foot) {
-        this.name = name;
-        this.head = head;
-        this.foot = foot;
-        this.id = Integer.MAX_VALUE;
-    }
-
-    public String getName() {
+     public String getName() {
         return name;
     }
 
@@ -46,8 +32,24 @@ public class NewGroupParameters {
         return foot;
     }
 
-    public void setId(int id) {
+    public NewGroupParameters withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public NewGroupParameters withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public NewGroupParameters withHead(String head) {
+        this.head = head;
+        return this;
+    }
+
+    public NewGroupParameters withFoot(String foot) {
+        this.foot = foot;
+        return this;
     }
 
     @Override

@@ -3,30 +3,12 @@ package ru.sivak.addressbookWebTests.model;
 import java.util.Objects;
 
 public class NewContactParameters {
-    private final String first;
-    private final String last;
-    private final String mobile;
-    private final String email;
+    private String first;
+    private String last;
+    private String mobile;
+    private String email;
     private String group;
-    private int id;
-
-    public NewContactParameters(String first, String last, String mobile, String email, String group) {
-        this.first = first;
-        this.last = last;
-        this.mobile = mobile;
-        this.email = email;
-        this.group = group;
-        this.id = Integer.MAX_VALUE;
-    }
-
-    public NewContactParameters(int id, String first, String last, String mobile, String email, String group) {
-        this.first = first;
-        this.last = last;
-        this.mobile = mobile;
-        this.email = email;
-        this.group = group;
-        this.id = id;
-    }
+    private int id = Integer.MAX_VALUE;
 
     public String getFirst() {
         return first;
@@ -52,8 +34,34 @@ public class NewContactParameters {
         return id;
     }
 
-    public void setId(int id) {
+    public NewContactParameters withFirst(String first) {
+        this.first = first;
+        return this;
+    }
+
+    public NewContactParameters withLast(String last) {
+        this.last = last;
+        return this;
+    }
+
+    public NewContactParameters withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public NewContactParameters withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public NewContactParameters withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    public NewContactParameters withId (int id){
         this.id = id;
+        return this;
     }
 
     @Override
@@ -92,7 +100,6 @@ public class NewContactParameters {
                 return Objects.equals(param1, param2);
             }
         }
-
 
     @Override
     public int hashCode() {

@@ -104,8 +104,7 @@ public class ContactHelper extends HelperBase {
             } else {
                 email = null;
             }*/
-            NewContactParameters contact = new NewContactParameters(id,first,last,mobile,email,null);
-            contacts.add(contact);
+            contacts.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withMobile(mobile));
             //tdNumber ++;
         }
         return contacts;

@@ -15,7 +15,7 @@ public class NewContactTest extends TestBase {
         app.goTo().home();
         List<NewContactParameters> before = app.contact().list();
         app.goTo().addNew();
-        NewContactParameters contact = new NewContactParameters("Test123",null,null,"asdf", null);
+        NewContactParameters contact = new NewContactParameters().withFirst("test");
         app.contact().create(contact,true);
         List<NewContactParameters> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() + 1);

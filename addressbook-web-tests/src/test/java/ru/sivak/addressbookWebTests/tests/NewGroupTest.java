@@ -14,7 +14,7 @@ public class NewGroupTest extends TestBase {
     public void createNewGroup() {
         app.goTo().groups();
         List<NewGroupParameters> before = app.group().list();
-        NewGroupParameters group = new NewGroupParameters("Test", null, null);
+        NewGroupParameters group = new NewGroupParameters().withName("test");
         app.group().create(group);
         List<NewGroupParameters> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() + 1);

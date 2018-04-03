@@ -13,7 +13,7 @@ public class EditGroupTest extends TestBase {
     public void ensurePreconditions() {
         app.goTo().groups();
         if (app.group().list().size()==0) {
-            app.group().create(new NewGroupParameters("TestName", null, null));
+            app.group().create(new NewGroupParameters().withName("test"));
         }
     }
 
@@ -22,7 +22,8 @@ public class EditGroupTest extends TestBase {
         List<NewGroupParameters> before = app.group().list();
         int index;
         index = app.mathHelper().random(0,(before.size()-1));
-        NewGroupParameters group = new NewGroupParameters(before.get(index).getId(),"1234", "1234", "1234");
+        NewGroupParameters group = new NewGroupParameters().withId(before.get(index).getId())
+                .withName("test").withFoot("testf").withHead("testh");
         app.group().edit(index, group);
         List<NewGroupParameters> after = app.group().list();
         Assert.assertEquals(after.size(), before.size());

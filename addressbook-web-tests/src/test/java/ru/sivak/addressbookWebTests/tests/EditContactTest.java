@@ -14,7 +14,7 @@ public class EditContactTest extends TestBase {
         app.goTo().home();
         if (app.contact().list().size()==0) {
             app.goTo().addNew();
-            app.contact().create(new NewContactParameters("TestName", null, null, null, null), true);
+            app.contact().create(new NewContactParameters().withFirst("test"), true);
         }
     }
 
@@ -23,7 +23,8 @@ public class EditContactTest extends TestBase {
         int index;
         List<NewContactParameters> before = app.contact().list();
         index = app.mathHelper().random(1,before.size());
-        NewContactParameters contact = new NewContactParameters(before.get(index-1).getId(),"First", "Last", "97777777777", "edit@edit.edit", null);
+        NewContactParameters contact = new NewContactParameters().withId(before.get(index-1).getId())
+                .withFirst("Edit").withEmail("edit").withLast("edit").withMobile("666");
         app.contact().edit(index, contact);
         List<NewContactParameters> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size());
