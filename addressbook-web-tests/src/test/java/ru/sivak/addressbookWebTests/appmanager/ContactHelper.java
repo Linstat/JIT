@@ -66,6 +66,20 @@ public class ContactHelper extends HelperBase {
         clickHomePage();
     }
 
+    public void editContact(int index, NewContactParameters contact) {
+        clickEdit(index);
+        fillNewContact(contact,false);
+        clickUpdate();
+        clickHomePage();
+    }
+
+
+    public void deleteContact(int index) {
+        selectContact(index);
+        ClickDeleteContact();
+        acceptDelete();
+    }
+
     public boolean isContactHere() {
         return isElementPresent(By.name("selected[]"));
     }

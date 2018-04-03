@@ -17,12 +17,7 @@ public class ApplicationManager {
     public GroupHelper groupHelper;
     public MathHelper mathHelper;
 
-    public void stop() {
-        sessionHelper.logout();
-        wd.quit();
-    }
-
-    public void init(String browser) {
+    public ApplicationManager(String browser) {
         if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
         } else if (browser.equals(BrowserType.CHROME)) {
@@ -30,6 +25,14 @@ public class ApplicationManager {
         } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         }
+    }
+
+    public void stop() {
+        sessionHelper.logout();
+        wd.quit();
+    }
+
+    public void init() {
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         contactHelper = new ContactHelper(wd);
         groupHelper = new GroupHelper(wd);

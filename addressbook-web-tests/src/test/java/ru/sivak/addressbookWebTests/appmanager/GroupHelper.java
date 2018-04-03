@@ -60,6 +60,20 @@ public class GroupHelper extends HelperBase {
         clickGroupPage();
     }
 
+    public void editGroup(int index, NewGroupParameters group) {
+        selectGroup(index);
+        clickEdit();
+        fillNewGroup(group);
+        clickUpdate();
+        clickGroupPage();
+    }
+
+    public void deleteGroup(int index) {
+        selectGroup(index);
+        clickDeleteGroup();
+        clickGroupPage();
+    }
+
     public boolean isGroupHere() {
         return isElementPresent(By.name("selected[]"));
     }
