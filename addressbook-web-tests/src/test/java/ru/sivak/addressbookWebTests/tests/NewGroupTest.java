@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -13,11 +12,11 @@ public class NewGroupTest extends TestBase {
 
     @Test
     public void createNewGroup() {
-        app.getNavigationHelper().clickGroups();
-        List<NewGroupParameters> before = app.getGroupHelper().getGroupList();
+        app.goTo().groups();
+        List<NewGroupParameters> before = app.group().list();
         NewGroupParameters group = new NewGroupParameters("Test", null, null);
-        app.getGroupHelper().createGroup(group);
-        List<NewGroupParameters> after = app.getGroupHelper().getGroupList();
+        app.group().create(group);
+        List<NewGroupParameters> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() + 1);
         before.add(group);
         Comparator<? super NewGroupParameters> byId = Comparator.comparingInt(NewGroupParameters::getId);
