@@ -3,6 +3,7 @@ package ru.sivak.addressbookWebTests.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.util.HashSet;
@@ -79,8 +80,8 @@ public class GroupHelper extends HelperBase {
         selectElement("selected[]", number);
     }
 
-    public Set<NewGroupParameters> all() {
-        Set<NewGroupParameters> groups = new HashSet<NewGroupParameters>();
+    public Groups all() {
+        Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
