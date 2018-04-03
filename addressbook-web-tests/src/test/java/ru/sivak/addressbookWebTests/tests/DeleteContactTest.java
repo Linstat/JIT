@@ -5,13 +5,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 
-import java.util.List;
+import java.util.Set;
 
 public class DeleteContactTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().home();
-        if (app.contact().list().size()==0) {
+        if (app.contact().all().size() == 0) {
             app.goTo().addNew();
             app.contact().create(new NewContactParameters().withFirst("test"), true);
         }
@@ -19,15 +19,14 @@ public class DeleteContactTest extends TestBase {
 
     @Test
     public void testDeleteContact() {
-        int index;
-        List<NewContactParameters> before = app.contact().list();
-        index = app.mathHelper().random(0,(before.size()-1));
-        app.contact().delete(index);
+        Set<NewContactParameters> before = app.contact().all();
+        NewContactParameters deletedContact = before.iterator().next();
+        app.contact().delete(deletedContact);
         app.goTo().home();
-        List<NewContactParameters> after = app.contact().list();
-        Assert.assertEquals(after.size(), before.size() -1);
-        before.remove(index);
-        Assert.assertEquals(after,before);
+        Set<NewContactParameters> after = app.contact().all();
+        Assert.assertEquals(after.size(), before.size() - 1);
+        before.remove(deletedContact);
+        Assert.assertEquals(after, before);
     }
 
 

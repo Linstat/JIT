@@ -7,8 +7,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -29,8 +30,8 @@ public class ContactHelper extends HelperBase {
         fillField(By.name("lastname"), newContactParameters.getLast());
         fillField(By.name("mobile"), newContactParameters.getMobile());
         fillField(By.name("email"), newContactParameters.getEmail());
-        if (creation){
-            if (newContactParameters.getGroup()!=null) {
+        if (creation) {
+            if (newContactParameters.getGroup() != null) {
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactParameters.getGroup());
             }
         } else {
@@ -42,18 +43,16 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 
-    public void selectContact(int number) {
-        selectElement("selected[]", number);
-    }
-
     public void acceptDelete() {
         acceptAlert();
     }
 
-    public void clickEdit(int number) {
-        WebElement element = wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr["+(number+1)+"]/td[1]"));
-        int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-        click(By.xpath("//a[@href='edit.php?id="+id+"']"));
+    private void editContactById(int id) {
+        wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
+    }
+
+    private void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
 
     public void clickUpdate() {
@@ -66,18 +65,31 @@ public class ContactHelper extends HelperBase {
         clickHomePage();
     }
 
-    public void edit(int index, NewContactParameters contact) {
-        clickEdit(index);
-        fillNewContact(contact,false);
+    public void edit(NewContactParameters contact) {
+        editContactById(contact.getId());
+        fillNewContact(contact, false);
         clickUpdate();
         clickHomePage();
     }
 
-
-    public void delete(int index) {
-        selectContact(index);
+    public void delete(NewContactParameters contact) {
+        selectContactById(contact.getId());
         ClickDeleteContact();
         acceptDelete();
+    }
+
+    public Set<NewContactParameters> all() {
+        Set<NewContactParameters> contacts = new HashSet<NewContactParameters>();
+        List<WebElement> elements = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
+        for (WebElement element : elements) {
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+            String last = element.findElement(By.xpath("td[2]")).getText();
+            String first = element.findElement(By.xpath("td[3]")).getText();
+            String mobile = element.findElement(By.xpath("td[6]")).getText();
+            String email = element.findElement(By.xpath("td[5]")).getText();
+            contacts.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withMobile(mobile));
+        }
+        return contacts;
     }
 
     public boolean isContactHere() {
@@ -86,27 +98,5 @@ public class ContactHelper extends HelperBase {
 
     public int getContactCount() {
         return getCount("selected[]");
-    }
-
-    public List<NewContactParameters> list() {
-        List<NewContactParameters> contacts = new ArrayList<>();
-        List<WebElement> elements = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
-        //int tdNumber = 2;
-        for (WebElement element : elements){
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            String last = element.findElement(By.xpath("td[2]")).getText();
-            String first = element.findElement(By.xpath("td[3]")).getText();
-            String mobile = element.findElement(By.xpath("td[6]")).getText();
-            String email = element.findElement(By.xpath("td[5]")).getText();
-            /*String email;
-            if (isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr["+tdNumber+"]/td[5]/a"))){
-                email = element.findElement(By.xpath("td[5]/a")).getText();
-            } else {
-                email = null;
-            }*/
-            contacts.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withMobile(mobile));
-            //tdNumber ++;
-        }
-        return contacts;
     }
 }

@@ -5,14 +5,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
-import java.util.*;
+import java.util.Set;
 
 public class EditGroupTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().groups();
-        if (app.group().all().size()==0) {
+        if (app.group().all().size() == 0) {
             app.group().create(new NewGroupParameters().withName("test"));
         }
     }
@@ -22,13 +22,13 @@ public class EditGroupTest extends TestBase {
         Set<NewGroupParameters> before = app.group().all();
         NewGroupParameters editedGroup = before.iterator().next();
         NewGroupParameters group = new NewGroupParameters().withId(editedGroup.getId())
-                .withName("test").withFoot("testf").withHead("testh");
+                .withName("test1").withFoot("testf").withHead("testh");
         app.group().edit(group);
         Set<NewGroupParameters> after = app.group().all();
         Assert.assertEquals(after.size(), before.size());
         before.remove(editedGroup);
         before.add(group);
-        Assert.assertEquals(before,after);
+        Assert.assertEquals(before, after);
     }
 
 }

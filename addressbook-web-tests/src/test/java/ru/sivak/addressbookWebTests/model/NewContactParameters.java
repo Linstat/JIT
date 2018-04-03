@@ -81,12 +81,14 @@ public class NewContactParameters {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NewContactParameters that = (NewContactParameters) o;
+        boolean idResult = checkResult(Integer.toString(id), Integer.toString(that.id));
         boolean lastResult = checkResult(last, that.last);
         boolean mobileResult = checkResult(mobile, that.mobile);
         boolean emailResult = checkResult(email, that.email);
         boolean firstResult = checkResult(first, that.first);
         boolean groupResult = checkResult(group, that.group);
         return firstResult &&
+                idResult &&
                 lastResult &&
                 mobileResult &&
                 emailResult &&

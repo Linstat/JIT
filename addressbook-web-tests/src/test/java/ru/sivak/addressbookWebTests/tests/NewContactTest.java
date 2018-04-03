@@ -4,8 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 
 public class NewContactTest extends TestBase {
@@ -13,17 +12,15 @@ public class NewContactTest extends TestBase {
     @Test
     public void createNewContact() {
         app.goTo().home();
-        List<NewContactParameters> before = app.contact().list();
+        Set<NewContactParameters> before = app.contact().all();
         app.goTo().addNew();
         NewContactParameters contact = new NewContactParameters().withFirst("test");
-        app.contact().create(contact,true);
-        List<NewContactParameters> after = app.contact().list();
+        app.contact().create(contact, true);
+        Set<NewContactParameters> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size() + 1);
+        contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
         before.add(contact);
-        Comparator<? super NewContactParameters> byId = Comparator.comparingInt(NewContactParameters::getId);
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before,after);
+        Assert.assertEquals(before, after);
     }
 
 }

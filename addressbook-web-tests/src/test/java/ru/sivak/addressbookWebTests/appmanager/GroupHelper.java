@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,16 +38,8 @@ public class GroupHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[5]"));
     }
 
-    public void selectGroup(int number) {
-        selectElement("selected[]", number);
-    }
-
     public void selectGroupById(int id) {
-        wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
-    }
-
-    public int getGroupCount() {
-        return getCount("selected[]");
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void clickEdit() {
@@ -80,25 +71,12 @@ public class GroupHelper extends HelperBase {
         clickGroupPage();
     }
 
-    public void delete(int index) {
-        selectGroup(index);
-        clickDeleteGroup();
-        clickGroupPage();
-    }
-
     public boolean isGroupHere() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public List<NewGroupParameters> list() {
-        List<NewGroupParameters> groups = new ArrayList<>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-        for (WebElement element : elements) {
-            String name = element.getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groups.add(new NewGroupParameters().withId(id).withName(name));
-        }
-        return groups;
+    public void selectGroup(int number) {
+        selectElement("selected[]", number);
     }
 
     public Set<NewGroupParameters> all() {
