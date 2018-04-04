@@ -6,6 +6,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -29,9 +32,14 @@ public class ContactPhoneTest extends TestBase{
         app.goTo().home();
         NewContactParameters contact = app.contact().all().iterator().next();
         NewContactParameters contactInfoFormEditForm = app.contact().infoFormEditForm(contact);
-        assertThat(contact.getHome(), equalTo(cleaned(contactInfoFormEditForm.getHome())));
-        assertThat(contact.getMobile(), equalTo(cleaned(contactInfoFormEditForm.getMobile())));
-        assertThat(contact.getWork(), equalTo(cleaned(contactInfoFormEditForm.getWork())));
+        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFormEditForm)));
+    }
+
+    private String mergePhones(NewContactParameters contact) {
+        return Arrays.asList(contact.getHome(),contact.getMobile(),contact.getWork())
+                .stream().filter((s)->!s.equals(""))
+                .map(this::cleaned)
+                .collect(Collectors.joining("\n"));
     }
 
     public String cleaned(String phone){

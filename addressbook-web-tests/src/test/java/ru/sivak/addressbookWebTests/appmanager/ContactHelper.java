@@ -94,9 +94,10 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
             String last = element.findElement(By.xpath("td[2]")).getText();
             String first = element.findElement(By.xpath("td[3]")).getText();
-            String[] phones = element.findElement(By.xpath("td[6]")).getText().split("\n");
+            String allPhones = element.findElement(By.xpath("td[6]")).getText();
+            //String[] phones = element.findElement(By.xpath("td[6]")).getText().split("\n");
             String email = element.findElement(By.xpath("td[5]")).getText();
-            contactCash.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withHome(phones[0]).withMobile(phones[1]).withWork(phones[2]));
+            contactCash.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withAllPhones(allPhones));
         }
         return new Contacts(contactCash);
     }

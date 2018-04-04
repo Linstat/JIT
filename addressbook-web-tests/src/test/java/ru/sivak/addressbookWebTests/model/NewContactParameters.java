@@ -10,6 +10,10 @@ public class NewContactParameters {
     private String mobile;
     private String home;
     private String work;
+
+
+
+    private String allPhones;
     private int id = Integer.MAX_VALUE;
 
     public String getFirst() {
@@ -42,6 +46,15 @@ public class NewContactParameters {
 
     public String getWork() {
         return work;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public NewContactParameters withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
     }
 
     public NewContactParameters withWork(String work) {
