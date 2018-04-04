@@ -63,6 +63,7 @@ public class ContactHelper extends HelperBase {
     public void create(NewContactParameters contact, boolean creation) {
         fillNewContact(contact, creation);
         clickEnter();
+        contactCash = null;
         clickHomePage();
     }
 
@@ -70,6 +71,7 @@ public class ContactHelper extends HelperBase {
         editContactById(contact.getId());
         fillNewContact(contact, false);
         clickUpdate();
+        contactCash = null;
         clickHomePage();
     }
 
@@ -77,10 +79,16 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         ClickDeleteContact();
         acceptDelete();
+        contactCash = null;
     }
 
+    private Contacts contactCash = null;
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCash != null) {
+            return new Contacts(contactCash);
+        }
+        contactCash = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//tbody/tr[@name='entry']"));
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
@@ -88,9 +96,9 @@ public class ContactHelper extends HelperBase {
             String first = element.findElement(By.xpath("td[3]")).getText();
             String mobile = element.findElement(By.xpath("td[6]")).getText();
             String email = element.findElement(By.xpath("td[5]")).getText();
-            contacts.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withMobile(mobile));
+            contactCash.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withMobile(mobile));
         }
-        return contacts;
+        return new Contacts(contactCash);
     }
 
     public boolean isContactHere() {

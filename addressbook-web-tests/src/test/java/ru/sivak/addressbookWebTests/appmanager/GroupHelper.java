@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -55,6 +53,7 @@ public class GroupHelper extends HelperBase {
         clickNewGroup();
         fillNewGroup(group);
         clickSubmit();
+        groupCash = null;
         clickGroupPage();
     }
 
@@ -63,12 +62,14 @@ public class GroupHelper extends HelperBase {
         clickEdit();
         fillNewGroup(group);
         clickUpdate();
+        groupCash = null;
         clickGroupPage();
     }
 
     public void delete(NewGroupParameters group) {
         selectGroupById(group.getId());
         clickDeleteGroup();
+        groupCash = null;
         clickGroupPage();
     }
 
@@ -80,15 +81,20 @@ public class GroupHelper extends HelperBase {
         selectElement("selected[]", number);
     }
 
+    private Groups groupCash = null;
+
     public Groups all() {
-        Groups groups = new Groups();
+        if (groupCash != null) {
+            return new Groups(groupCash);
+        }
+        groupCash = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groups.add(new NewGroupParameters().withId(id).withName(name));
+            groupCash.add(new NewGroupParameters().withId(id).withName(name));
         }
-        return groups;
+        return new Groups(groupCash);
     }
 
 }
