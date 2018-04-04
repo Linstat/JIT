@@ -1,12 +1,9 @@
 package ru.sivak.addressbookWebTests.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Contacts;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,7 +24,7 @@ public class DeleteContactTest extends TestBase {
         NewContactParameters deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
         app.goTo().home();
-        assertThat(app.contactHelper.count(), equalTo(before.size()-1));
+        assertThat(app.contactHelper.count(), equalTo(before.size() - 1));
         Contacts after = app.contact().all();
         assertThat(after, equalTo(before.without(deletedContact)));
     }

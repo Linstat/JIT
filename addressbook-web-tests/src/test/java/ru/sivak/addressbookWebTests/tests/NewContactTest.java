@@ -1,11 +1,8 @@
 package ru.sivak.addressbookWebTests.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Contacts;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

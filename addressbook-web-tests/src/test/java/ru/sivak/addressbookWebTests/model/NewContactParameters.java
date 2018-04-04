@@ -5,11 +5,15 @@ import java.util.Objects;
 public class NewContactParameters {
     private String first;
     private String last;
-    private String email;
+    private String email1;
+    private String email2;
+    private String email3;
     private String group;
     private String mobile;
     private String home;
     private String work;
+    private String allEmails;
+    private String address;
 
 
 
@@ -24,8 +28,16 @@ public class NewContactParameters {
         return last;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail1() {
+        return email1;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
     }
 
     public String getGroup() {
@@ -50,6 +62,19 @@ public class NewContactParameters {
 
     public String getAllPhones() {
         return allPhones;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public NewContactParameters withAddress(String address) {
+        this.address = address;
+        return this;
     }
 
     public NewContactParameters withAllPhones(String allPhones) {
@@ -82,8 +107,23 @@ public class NewContactParameters {
         return this;
     }
 
-    public NewContactParameters withEmail(String email) {
-        this.email = email;
+    public NewContactParameters withAllEmails(String AllEmails) {
+        this.allEmails = AllEmails;
+        return this;
+    }
+
+    public NewContactParameters withEmail1(String email1) {
+        this.email1 = email1;
+        return this;
+    }
+
+    public NewContactParameters withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public NewContactParameters withEmail3(String email3) {
+        this.email3 = email3;
         return this;
     }
 
@@ -102,7 +142,7 @@ public class NewContactParameters {
         return "NewContactParameters{" +
                 "first='" + first + '\'' +
                 ", last='" + last + '\'' +
-                ", email='" + email + '\'' +
+                ", email1='" + email1 + '\'' +
                 ", group='" + group + '\'' +
                 ", id=" + id +
                 '}';
@@ -115,13 +155,11 @@ public class NewContactParameters {
         NewContactParameters that = (NewContactParameters) o;
         boolean idResult = checkResult(Integer.toString(id), Integer.toString(that.id));
         boolean lastResult = checkResult(last, that.last);
-        boolean emailResult = checkResult(email, that.email);
         boolean firstResult = checkResult(first, that.first);
         boolean groupResult = checkResult(group, that.group);
         return firstResult &&
                 idResult &&
                 lastResult &&
-                emailResult &&
                 groupResult;
         }
 
@@ -136,7 +174,7 @@ public class NewContactParameters {
     @Override
     public int hashCode() {
 
-        return Objects.hash(first, last, email, group);
+        return Objects.hash(first, last, group);
     }
 
 }

@@ -1,15 +1,12 @@
 package ru.sivak.addressbookWebTests.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.testng.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DeleteGroupTest extends TestBase {
     @BeforeMethod
@@ -26,7 +23,7 @@ public class DeleteGroupTest extends TestBase {
         Groups before = app.group().all();
         NewGroupParameters deletedGroup = before.iterator().next();
         app.group().delete(deletedGroup);
-        assertThat(app.groupHelper.count(), equalTo(before.size()-1));
+        assertThat(app.groupHelper.count(), equalTo(before.size() - 1));
         Groups after = app.group().all();
         assertThat(after, equalTo(before.without(deletedGroup)));
     }
