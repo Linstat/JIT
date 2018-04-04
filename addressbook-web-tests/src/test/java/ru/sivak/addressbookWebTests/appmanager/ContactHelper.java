@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.sivak.addressbookWebTests.model.Contacts;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -29,8 +27,10 @@ public class ContactHelper extends HelperBase {
     public void fillNewContact(NewContactParameters newContactParameters, boolean creation) {
         fillField(By.name("firstname"), newContactParameters.getFirst());
         fillField(By.name("lastname"), newContactParameters.getLast());
-        fillField(By.name("mobile"), newContactParameters.getMobile());
         fillField(By.name("email"), newContactParameters.getEmail());
+        fillField(By.name("mobile"), newContactParameters.getMobile());
+        fillField(By.name("home"), newContactParameters.getHome());
+        fillField(By.name("work"), newContactParameters.getWork());
         if (creation) {
             if (newContactParameters.getGroup() != null) {
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactParameters.getGroup());
@@ -94,9 +94,9 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
             String last = element.findElement(By.xpath("td[2]")).getText();
             String first = element.findElement(By.xpath("td[3]")).getText();
-            String mobile = element.findElement(By.xpath("td[6]")).getText();
+            String[] phones = element.findElement(By.xpath("td[6]")).getText().split("\n");
             String email = element.findElement(By.xpath("td[5]")).getText();
-            contactCash.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withMobile(mobile));
+            contactCash.add(new NewContactParameters().withId(id).withEmail(email).withFirst(first).withLast(last).withHome(phones[0]).withMobile(phones[1]).withWork(phones[2]));
         }
         return new Contacts(contactCash);
     }
@@ -105,7 +105,18 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public int getContactCount() {
-        return getCount("selected[]");
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public NewContactParameters infoFormEditForm(NewContactParameters contact) {
+        editContactById(contact.getId());
+        String last = wd.findElement(By.name("lastname")).getAttribute("value");
+        String first = wd.findElement(By.name("firstname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return  new NewContactParameters().withId(contact.getId()).withFirst(first).withLast(last).withHome(home).withMobile(mobile).withWork(work);
     }
 }

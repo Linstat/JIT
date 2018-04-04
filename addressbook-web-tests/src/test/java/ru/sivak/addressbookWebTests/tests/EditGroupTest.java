@@ -30,8 +30,8 @@ public class EditGroupTest extends TestBase {
         NewGroupParameters group = new NewGroupParameters().withId(editedGroup.getId())
                 .withName("test1").withFoot("testf").withHead("testh");
         app.group().edit(group);
+        assertThat(app.groupHelper.count(), equalTo(before.size()));
         Groups after = app.group().all();
-        assertThat(after.size(), equalTo(before.size()));
         assertThat(after, equalTo(before.without(editedGroup).withAdded(group)));
     }
 

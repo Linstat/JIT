@@ -5,9 +5,11 @@ import java.util.Objects;
 public class NewContactParameters {
     private String first;
     private String last;
-    private String mobile;
     private String email;
     private String group;
+    private String mobile;
+    private String home;
+    private String work;
     private int id = Integer.MAX_VALUE;
 
     public String getFirst() {
@@ -16,10 +18,6 @@ public class NewContactParameters {
 
     public String getLast() {
         return last;
-    }
-
-    public String getMobile() {
-        return mobile;
     }
 
     public String getEmail() {
@@ -34,6 +32,33 @@ public class NewContactParameters {
         return id;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public String getHome() {
+        return home;
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public NewContactParameters withWork(String work) {
+        this.work = work;
+        return this;
+    }
+
+    public NewContactParameters withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public NewContactParameters withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
     public NewContactParameters withFirst(String first) {
         this.first = first;
         return this;
@@ -41,11 +66,6 @@ public class NewContactParameters {
 
     public NewContactParameters withLast(String last) {
         this.last = last;
-        return this;
-    }
-
-    public NewContactParameters withMobile(String mobile) {
-        this.mobile = mobile;
         return this;
     }
 
@@ -69,7 +89,6 @@ public class NewContactParameters {
         return "NewContactParameters{" +
                 "first='" + first + '\'' +
                 ", last='" + last + '\'' +
-                ", mobile='" + mobile + '\'' +
                 ", email='" + email + '\'' +
                 ", group='" + group + '\'' +
                 ", id=" + id +
@@ -83,14 +102,12 @@ public class NewContactParameters {
         NewContactParameters that = (NewContactParameters) o;
         boolean idResult = checkResult(Integer.toString(id), Integer.toString(that.id));
         boolean lastResult = checkResult(last, that.last);
-        boolean mobileResult = checkResult(mobile, that.mobile);
         boolean emailResult = checkResult(email, that.email);
         boolean firstResult = checkResult(first, that.first);
         boolean groupResult = checkResult(group, that.group);
         return firstResult &&
                 idResult &&
                 lastResult &&
-                mobileResult &&
                 emailResult &&
                 groupResult;
         }
@@ -106,6 +123,7 @@ public class NewContactParameters {
     @Override
     public int hashCode() {
 
-        return Objects.hash(first, last, mobile, email, group);
+        return Objects.hash(first, last, email, group);
     }
+
 }

@@ -17,7 +17,7 @@ public class DeleteContactTest extends TestBase {
         app.goTo().home();
         if (app.contact().all().size() == 0) {
             app.goTo().addNew();
-            app.contact().create(new NewContactParameters().withFirst("test"), true);
+            app.contact().create(new NewContactParameters().withFirst("test").withMobile("123").withHome("123").withWork("123"), true);
         }
     }
 
@@ -27,9 +27,8 @@ public class DeleteContactTest extends TestBase {
         NewContactParameters deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
         app.goTo().home();
+        assertThat(app.contactHelper.count(), equalTo(before.size()-1));
         Contacts after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
-        assertThat(after.size(), equalTo(before.size() - 1));
         assertThat(after, equalTo(before.without(deletedContact)));
     }
 

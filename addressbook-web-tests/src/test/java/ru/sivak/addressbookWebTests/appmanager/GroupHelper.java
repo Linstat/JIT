@@ -81,6 +81,10 @@ public class GroupHelper extends HelperBase {
         selectElement("selected[]", number);
     }
 
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
     private Groups groupCash = null;
 
     public Groups all() {
