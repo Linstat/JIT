@@ -1,5 +1,6 @@
 package ru.sivak.addressbookWebTests.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class NewContactParameters {
@@ -14,6 +15,7 @@ public class NewContactParameters {
     private String work;
     private String allEmails;
     private String address;
+    private File photo;
 
 
 
@@ -70,6 +72,15 @@ public class NewContactParameters {
 
     public String getAddress() {
         return address;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public NewContactParameters withPhoto(File photo) {
+        this.photo = photo;
+        return this;
     }
 
     public NewContactParameters withAddress(String address) {

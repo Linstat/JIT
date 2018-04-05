@@ -31,6 +31,7 @@ public class ContactHelper extends HelperBase {
         fillField(By.name("mobile"), newContactParameters.getMobile());
         fillField(By.name("home"), newContactParameters.getHome());
         fillField(By.name("work"), newContactParameters.getWork());
+        attach(By.name("photo"), newContactParameters.getPhoto());
         if (creation) {
             if (newContactParameters.getGroup() != null) {
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactParameters.getGroup());
