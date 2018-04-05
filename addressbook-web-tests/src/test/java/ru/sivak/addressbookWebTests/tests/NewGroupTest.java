@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,11 +17,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class NewGroupTest extends TestBase {
 
     @DataProvider
-    public Iterator<Object[]> validGroups() {
+    public Iterator<Object[]> validGroups() throws IOException {
         List<Object[]> list = new ArrayList<>();
-        list.add(new Object[]{new NewGroupParameters().withName("test1").withHead("header1").withFoot("footer1")});
-        list.add(new Object[]{new NewGroupParameters().withName("test2").withHead("header2").withFoot("footer2")});
-        list.add(new Object[]{new NewGroupParameters().withName("test3").withHead("header3").withFoot("footer3")});
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv")));
+        String line = reader.readLine();
+        while (line != null){
+            String[] split = line.split(";");
+            list.add(new Object[] {new NewGroupParameters().withName(split[0]).withHead(split[1]).withFoot(split[2])});
+            line = reader.readLine();
+        }
         return list.iterator();
     }
 
