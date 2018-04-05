@@ -3,6 +3,7 @@ package ru.sivak.addressbookWebTests.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import ru.sivak.addressbookWebTests.model.NewContactParameters;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.io.File;
@@ -16,16 +17,16 @@ import java.util.List;
  * @author p.sivak.
  * @since 05.04.2018.
  */
-public class GroupDataGenerator {
+public class ContactDataGenerator {
 
-    @Parameter(names = "-c", description = "Group count")
+    @Parameter(names = "-c", description = "Contact count")
     public int count;
 
     @Parameter(names = "-f", description = "Target file")
     public String file;
 
     public static void main(String[] args) throws IOException {
-        GroupDataGenerator generator = new GroupDataGenerator();
+        ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
@@ -37,23 +38,24 @@ public class GroupDataGenerator {
     }
 
     private void run() throws IOException {
-        List<NewGroupParameters> groups = generatorGroups(count);
-        save(groups, new File(file));
+        List<NewContactParameters> contacts = generatorContacts(count);
+        save(contacts, new File(file));
     }
 
-    private void save(List<NewGroupParameters> groups, File file) throws IOException {
+    private static void save(List<NewContactParameters> contacts, File file) throws IOException {
         Writer writer = new FileWriter(file);
-        for (NewGroupParameters group : groups) {
-            writer.write(String.format("%s;%s;%s;\n", group.getName(), group.getHead(), group.getFoot()));
+        for (NewContactParameters contact : contacts){
+            writer.write(String.format("%s;%s;%s;%s;\n", contact.getFirst(),contact.getLast(),contact.getMobile(),contact.getAddress()));
         }
         writer.close();
     }
 
-    private List<NewGroupParameters> generatorGroups(int count) {
-        List<NewGroupParameters> groups = new ArrayList<>();
+    private static List<NewContactParameters> generatorContacts(int count) {
+        List<NewContactParameters> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            groups.add(new NewGroupParameters().withName(String.format("test %s", i)).withHead(String.format("header %s", i)).withFoot(String.format("footer %s", i)));
+            contacts.add(new NewContactParameters().withFirst(String.format("first %s", i)).withLast(String.format("last %s", i))
+                    .withMobile(String.format("12345 %s", i)).withAddress(String.format("address %s", i)));
         }
-        return groups;
+        return contacts;
     }
 }
