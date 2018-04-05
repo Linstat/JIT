@@ -31,6 +31,7 @@ public class ContactHelper extends HelperBase {
         fillField(By.name("mobile"), newContactParameters.getMobile());
         fillField(By.name("home"), newContactParameters.getHome());
         fillField(By.name("work"), newContactParameters.getWork());
+        fillField(By.name("address"), newContactParameters.getAddress());
         attach(By.name("photo"), newContactParameters.getPhoto());
         if (creation) {
             if (newContactParameters.getGroup() != null) {

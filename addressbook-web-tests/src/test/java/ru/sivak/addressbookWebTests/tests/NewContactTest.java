@@ -20,7 +20,6 @@ public class NewContactTest extends TestBase {
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
         List<Object[]> list = new ArrayList<>();
-        //File photo = new File("src/test/resources/qwer.png");
         BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
         String line = reader.readLine();
         while (line != null) {
@@ -34,6 +33,8 @@ public class NewContactTest extends TestBase {
 
     @Test(dataProvider = "validContacts")
     public void createNewContact(NewContactParameters contact) {
+        File photo = new File("src/test/resources/qwer.png");
+        contact.withPhoto(photo);
         app.goTo().home();
         Contacts before = app.contact().all();
         app.goTo().addNew();
