@@ -2,8 +2,11 @@ package ru.sivak.addressbookWebTests.tests;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.sivak.addressbookWebTests.appmanager.ApplicationManager;
 import ru.sivak.addressbookWebTests.model.Contacts;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
+
+import java.io.File;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,7 +17,8 @@ public class DeleteContactTest extends TestBase {
         app.goTo().home();
         if (app.contact().all().size() == 0) {
             app.goTo().addNew();
-            app.contact().create(new NewContactParameters().withFirst("test").withMobile("123").withHome("123").withWork("123"), true);
+            File photo = new File("src/test/resources/qwer.png");
+            app.contact().create(new NewContactParameters().withFirst("test").withMobile("123").withHome("123").withWork("123").withPhoto(photo), true);
         }
     }
 
