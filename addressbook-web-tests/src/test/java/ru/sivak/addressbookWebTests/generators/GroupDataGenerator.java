@@ -24,6 +24,9 @@ public class GroupDataGenerator {
     @Parameter(names = "-f", description = "Target file")
     public String file;
 
+    @Parameter(names = "-d", description = "Data format")
+     public String format;
+
     public static void main(String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
         JCommander jCommander = new JCommander(generator);
@@ -38,10 +41,14 @@ public class GroupDataGenerator {
 
     private void run() throws IOException {
         List<NewGroupParameters> groups = generatorGroups(count);
-        save(groups, new File(file));
+        if (format.equals("csv")) {
+            saveAsCsv(groups, new File(file));
+        } else if (format.equals("xml"){
+            saveAsXml(groups, new File(file));
+        }
     }
 
-    private void save(List<NewGroupParameters> groups, File file) throws IOException {
+    private void saveAsCsv(List<NewGroupParameters> groups, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (NewGroupParameters group : groups) {
             writer.write(String.format("%s;%s;%s;\n", group.getName(), group.getHead(), group.getFoot()));
