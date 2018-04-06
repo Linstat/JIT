@@ -16,7 +16,10 @@ public class NewContactParameters {
     private String allEmails;
     private String address;
     private File photo;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0ee0dccd0e679e60fd869ff0f5c57e2d7dff2f90
 
 
 
