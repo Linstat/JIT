@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.Objects;
 
-@XStreamAlias("contact")
+@XStreamAlias("group")
 
 public class NewGroupParameters {
     private String name;

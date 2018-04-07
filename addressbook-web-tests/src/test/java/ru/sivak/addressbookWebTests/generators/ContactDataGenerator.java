@@ -3,6 +3,7 @@ package ru.sivak.addressbookWebTests.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
@@ -26,6 +27,9 @@ public class ContactDataGenerator {
     @Parameter(names = "-f", description = "Target file")
     public String file;
 
+    @Parameter(names = "-d", description = "Data format")
+    public String format;
+
     public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jCommander = new JCommander(generator);
@@ -40,10 +44,24 @@ public class ContactDataGenerator {
 
     private void run() throws IOException {
         List<NewContactParameters> contacts = generatorContacts(count);
-        save(contacts, new File(file));
+        if (format.equals("csv")) {
+            saveAsCsv(contacts, new File(file));
+        } else if (format.equals("xml")){
+            saveAsXml(contacts, new File(file));
+        }
     }
 
-    private static void save(List<NewContactParameters> contacts, File file) throws IOException {
+    private void saveAsXml(List<NewContactParameters> contacts, File file) throws IOException {
+        XStream xstream = new XStream();
+        xstream.processAnnotations(NewContactParameters.class);
+        xstream.alias("contact", NewContactParameters.class);
+        String xml = xstream.toXML(contacts);
+        Writer writer = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
+    }
+
+    private static void saveAsCsv(List<NewContactParameters> contacts, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (NewContactParameters contact : contacts){
             writer.write(String.format("%s;%s;%s;%s;\n", contact.getFirst(),contact.getLast(),contact.getMobile(),contact.getAddress()));

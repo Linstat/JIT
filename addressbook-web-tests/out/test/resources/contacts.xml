@@ -1,0 +1,32 @@
+<list>
+  <contact>
+    <first>first 0</first>
+    <last>last 0</last>
+    <mobile>12345 0</mobile>
+    <address>address 0</address>
+  </contact>
+  <contact>
+    <first>first 1</first>
+    <last>last 1</last>
+    <mobile>12345 1</mobile>
+    <address>address 1</address>
+  </contact>
+  <contact>
+    <first>first 2</first>
+    <last>last 2</last>
+    <mobile>12345 2</mobile>
+    <address>address 2</address>
+  </contact>
+  <contact>
+    <first>first 3</first>
+    <last>last 3</last>
+    <mobile>12345 3</mobile>
+    <address>address 3</address>
+  </contact>
+  <contact>
+    <first>first 4</first>
+    <last>last 4</last>
+    <mobile>12345 4</mobile>
+    <address>address 4</address>
+  </contact>
+</list>

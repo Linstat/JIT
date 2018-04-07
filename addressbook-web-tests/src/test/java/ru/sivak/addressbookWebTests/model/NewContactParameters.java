@@ -1,6 +1,7 @@
 package ru.sivak.addressbookWebTests.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.io.File;
 import java.util.Objects;
@@ -20,10 +21,8 @@ public class NewContactParameters {
     private String allEmails;
     private String address;
     private File photo;
-
-
-
     private String allPhones;
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
 
     public String getFirst() {
