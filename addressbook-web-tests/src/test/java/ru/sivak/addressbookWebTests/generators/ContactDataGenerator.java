@@ -56,17 +56,17 @@ public class ContactDataGenerator {
         xstream.processAnnotations(NewContactParameters.class);
         xstream.alias("contact", NewContactParameters.class);
         String xml = xstream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)){
+            writer.write(xml);
+        }
     }
 
     private static void saveAsCsv(List<NewContactParameters> contacts, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (NewContactParameters contact : contacts){
-            writer.write(String.format("%s;%s;%s;%s;\n", contact.getFirst(),contact.getLast(),contact.getMobile(),contact.getAddress()));
+        try (Writer writer = new FileWriter(file)){
+            for (NewContactParameters contact : contacts){
+                writer.write(String.format("%s;%s;%s;%s;\n", contact.getFirst(),contact.getLast(),contact.getMobile(),contact.getAddress()));
+            }
         }
-        writer.close();
     }
 
     private static List<NewContactParameters> generatorContacts(int count) {

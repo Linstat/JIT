@@ -5,16 +5,26 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.sivak.addressbookWebTests.appmanager.ApplicationManager;
 
+import java.io.IOException;
+
 /**
  * @author p.sivak.
  * @since 20.03.2018.
  */
 public class TestBase {
 
-    protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected static ApplicationManager app;
+
+    static {
+        try {
+            app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @BeforeSuite
-    public void setUp() {
+    public void setUp() throws IOException {
         app.init();
     }
 

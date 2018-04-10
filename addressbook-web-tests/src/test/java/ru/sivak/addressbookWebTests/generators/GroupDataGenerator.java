@@ -54,17 +54,17 @@ public class GroupDataGenerator {
         xstream.processAnnotations(NewGroupParameters.class);
         xstream.alias("group", NewGroupParameters.class);
         String xml = xstream.toXML(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)){
+            writer.write(xml);
+        }
     }
 
     private void saveAsCsv(List<NewGroupParameters> groups, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (NewGroupParameters group : groups) {
-            writer.write(String.format("%s;%s;%s;\n", group.getName(), group.getHead(), group.getFoot()));
+        try (Writer writer = new FileWriter(file)){
+            for (NewGroupParameters group : groups) {
+                writer.write(String.format("%s;%s;%s;\n", group.getName(), group.getHead(), group.getFoot()));
+            }
         }
-        writer.close();
     }
 
     private List<NewGroupParameters> generatorGroups(int count) {

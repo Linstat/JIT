@@ -6,32 +6,4 @@
     <foot>footer
 0</foot>
   </group>
-  <group>
-    <name>test 1</name>
-    <head>header
-1</head>
-    <foot>footer
-1</foot>
-  </group>
-  <group>
-    <name>test 2</name>
-    <head>header
-2</head>
-    <foot>footer
-2</foot>
-  </group>
-  <group>
-    <name>test 3</name>
-    <head>header
-3</head>
-    <foot>footer
-3</foot>
-  </group>
-  <group>
-    <name>test 4</name>
-    <head>header
-4</head>
-    <foot>footer
-4</foot>
-  </group>
 </list>
