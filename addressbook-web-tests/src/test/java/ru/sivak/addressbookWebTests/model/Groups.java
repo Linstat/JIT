@@ -2,7 +2,9 @@ package ru.sivak.addressbookWebTests.model;
 
 import com.google.common.collect.ForwardingSet;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,6 +21,10 @@ public class Groups extends ForwardingSet<NewGroupParameters>{
 
     public Groups() {
         this.deligate = new HashSet<>();
+    }
+
+    public Groups(Collection<NewGroupParameters> groups) {
+        this.deligate = new HashSet<>(groups);
     }
 
     @Override

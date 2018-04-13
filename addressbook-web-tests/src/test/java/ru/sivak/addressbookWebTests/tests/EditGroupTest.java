@@ -12,21 +12,22 @@ public class EditGroupTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().groups();
-        if (app.group().all().size() == 0) {
+        if (app.db().groups().size() == 0){
+            app.goTo().groups();
             app.group().create(new NewGroupParameters().withName("test"));
         }
     }
 
     @Test
     public void testEditGroup() {
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         NewGroupParameters editedGroup = before.iterator().next();
         NewGroupParameters group = new NewGroupParameters().withId(editedGroup.getId())
                 .withName("test1").withFoot("testf").withHead("testh");
+        app.goTo().groups();
         app.group().edit(group);
         assertThat(app.groupHelper.count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before.without(editedGroup).withAdded(group)));
     }
 

@@ -23,7 +23,7 @@
         <property name="connection.pool_size">1</property>
 
         <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
@@ -36,6 +36,7 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="ru.sivak.addressbookWebTests.model.NewGroupParameters"/>
+        <mapping class="ru.sivak.addressbookWebTests.model.NewContactParameters"/>
 
     </session-factory>
 

@@ -1,12 +1,14 @@
 package ru.sivak.addressbookWebTests.tests;
 
 import com.thoughtworks.xstream.XStream;
+import org.hibernate.annotations.Table;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Contacts;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
+import javax.persistence.Entity;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,7 +17,6 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 
 public class NewContactTest extends TestBase {
 

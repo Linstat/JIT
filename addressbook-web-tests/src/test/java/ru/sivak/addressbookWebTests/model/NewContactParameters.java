@@ -2,29 +2,55 @@ package ru.sivak.addressbookWebTests.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contact")
 @Entity
+@Table(name ="addressbook")
 
 public class NewContactParameters {
+    @Column(name = "firstname")
     private String first;
+    @Column(name = "lastname")
     private String last;
+    @Column(name = "email")
+    @Type(type = "text")
     private String email1;
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2;
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3;
+    @Transient
     private String group;
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobile;
+    @Column(name = "home")
+    @Type(type = "text")
     private String home;
+    @Column(name = "work")
+    @Type(type = "text")
     private String work;
+    @Transient
     private String allEmails;
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
-    private File photo;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+    @Transient
     private String allPhones;
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
 
     public String getFirst() {
@@ -79,12 +105,32 @@ public class NewContactParameters {
         return address;
     }
 
+    @Override
+    public String toString() {
+        return "NewContactParameters{" +
+                "first='" + first + '\'' +
+                ", last='" + last + '\'' +
+                ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", group='" + group + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", home='" + home + '\'' +
+                ", work='" + work + '\'' +
+                ", allEmails='" + allEmails + '\'' +
+                ", address='" + address + '\'' +
+                ", photo='" + photo + '\'' +
+                ", allPhones='" + allPhones + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public NewContactParameters withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -151,17 +197,6 @@ public class NewContactParameters {
     public NewContactParameters withId (int id){
         this.id = id;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "NewContactParameters{" +
-                "first='" + first + '\'' +
-                ", last='" + last + '\'' +
-                ", email1='" + email1 + '\'' +
-                ", group='" + group + '\'' +
-                ", id=" + id +
-                '}';
     }
 
     @Override
