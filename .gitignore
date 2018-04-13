@@ -76,3 +76,4 @@ addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/EditGroup
 addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/TestBase.java
 addressbook-web-tests/src/test/java/ru/sivak/addressbookWebTests/tests/TestBase.java
 addressbook-web-tests/.idea/workspace.xml___jb_tmp___
+*.log

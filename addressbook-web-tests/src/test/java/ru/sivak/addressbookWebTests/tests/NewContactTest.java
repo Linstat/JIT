@@ -22,20 +22,16 @@ public class NewContactTest extends TestBase {
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))){
-            //        List<Object[]> list = new ArrayList<>();
             String xml = "";
             String line = reader.readLine();
             while (line != null){
                 xml = xml + line;
-                //           String[] split = line.split(";");
-                //           list.add(new Object[] {new NewGroupParameters().withName(split[0]).withHead(split[1]).withFoot(split[2])});
                 line = reader.readLine();
             }
             XStream xstream = new XStream();
             xstream.processAnnotations(NewContactParameters.class);
             List<NewContactParameters> groups = (List<NewContactParameters>)xstream.fromXML(xml);
             return groups.stream().map((g)-> new Object[]{g}).collect(Collectors.toList()).iterator();
-//        return list.iterator();
         }
     }
 

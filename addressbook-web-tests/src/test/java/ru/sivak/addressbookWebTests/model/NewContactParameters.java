@@ -3,10 +3,12 @@ package ru.sivak.addressbookWebTests.model;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import javax.persistence.Entity;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contact")
+@Entity
 
 public class NewContactParameters {
     private String first;
