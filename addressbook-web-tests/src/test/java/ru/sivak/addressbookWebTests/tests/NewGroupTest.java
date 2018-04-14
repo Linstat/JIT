@@ -41,10 +41,10 @@ public class NewGroupTest extends TestBase {
     @Test(dataProvider = "validGroups")
     public void createNewGroup(NewGroupParameters group) {
         app.goTo().groups();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         app.group().create(group);
         assertThat(app.groupHelper.count(), equalTo(before.size() + 1));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(
         before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
@@ -52,11 +52,11 @@ public class NewGroupTest extends TestBase {
     @Test
     public void createBadNewGroup() {
         app.goTo().groups();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         NewGroupParameters group = new NewGroupParameters().withName("test'");
         app.group().create(group);
         assertThat(app.groupHelper.count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
     }
 
