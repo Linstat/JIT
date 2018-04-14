@@ -12,7 +12,7 @@ public class EditGroupTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (app.db().groups().size() == 0){
+        if (app.db().groups().size() == 0) {
             app.goTo().groups();
             app.group().create(new NewGroupParameters().withName("test"));
         }
@@ -29,6 +29,7 @@ public class EditGroupTest extends TestBase {
         assertThat(app.groupHelper.count(), equalTo(before.size()));
         Groups after = app.db().groups();
         assertThat(after, equalTo(before.without(editedGroup).withAdded(group)));
+        verifyGroupListInUI();
     }
 
 }

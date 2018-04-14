@@ -4,14 +4,13 @@ import com.google.common.collect.ForwardingSet;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
  * @author p.sivak.
  * @since 03.04.2018.
  */
-public class Groups extends ForwardingSet<NewGroupParameters>{
+public class Groups extends ForwardingSet<NewGroupParameters> {
 
     private Set<NewGroupParameters> deligate;
 

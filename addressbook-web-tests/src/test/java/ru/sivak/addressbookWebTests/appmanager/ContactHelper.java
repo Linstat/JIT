@@ -124,7 +124,7 @@ public class ContactHelper extends HelperBase {
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
         String address = wd.findElement(By.name("address")).getText();
         wd.navigate().back();
-        return  new NewContactParameters().withId(contact.getId()).withFirst(first).withLast(last).withHome(home).withMobile(mobile).withWork(work)
+        return new NewContactParameters().withId(contact.getId()).withFirst(first).withLast(last).withHome(home).withMobile(mobile).withWork(work)
                 .withEmail1(email1).withEmail2(email2).withEmail3(email3).withAddress(address);
     }
 

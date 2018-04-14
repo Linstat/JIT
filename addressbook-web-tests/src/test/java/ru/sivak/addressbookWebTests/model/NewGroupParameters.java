@@ -23,6 +23,24 @@ public class NewGroupParameters {
     @Column(name = "group_footer")
     @Type(type = "text")
     private String foot;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewGroupParameters that = (NewGroupParameters) o;
+        return id == that.id &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(head, that.head) &&
+                Objects.equals(foot, that.foot);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, head, foot, id);
+    }
+
     @XStreamOmitField
     @Id
     @Column(name = "group_id")
@@ -40,7 +58,7 @@ public class NewGroupParameters {
         return id;
     }
 
-     public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -72,18 +90,4 @@ public class NewGroupParameters {
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NewGroupParameters that = (NewGroupParameters) o;
-        return id == that.id &&
-                Objects.equals(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(name, id);
-    }
 }

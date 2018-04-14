@@ -7,10 +7,18 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.sivak.addressbookWebTests.appmanager.ApplicationManager;
+import ru.sivak.addressbookWebTests.model.Contacts;
+import ru.sivak.addressbookWebTests.model.Groups;
+import ru.sivak.addressbookWebTests.model.NewContactParameters;
+import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * @author p.sivak.
@@ -36,13 +44,13 @@ public class TestBase {
     }
 
     @BeforeMethod
-    public void logTestStart(Method m, Object[] p){
-        logger.info("Start test "+ m.getName()+" with parameters "+ Arrays.asList(p));
+    public void logTestStart(Method m, Object[] p) {
+        logger.info("Start test " + m.getName() + " with parameters " + Arrays.asList(p));
     }
 
     @AfterMethod(alwaysRun = true)
     public void logTestStop(Method m) {
-        logger.info("Stop test "+ m.getName());
+        logger.info("Stop test " + m.getName());
     }
 
     @AfterSuite(alwaysRun = true)
@@ -50,4 +58,22 @@ public class TestBase {
         app.stop();
     }
 
+
+    public void verifyGroupListInUI(){
+        if (Boolean.getBoolean("verifyUI")){
+            Groups dbGroups = app.db().groups();
+            Groups uiGroups = app.groupHelper.all();
+            assertThat(uiGroups, equalTo(dbGroups.stream()
+                .map((g)-> new NewGroupParameters().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
+        }
+    }
+
+    public void verifyContactListInUI() {
+        if (Boolean.getBoolean("verifyUI")){
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contactHelper.all();
+            assertThat(uiContacts, equalTo(dbContacts.stream()
+                    .map((g)-> new NewContactParameters().withId(g.getId()).withFirst(g.getFirst()).withLast(g.getLast()).withGroup(g.getGroup())).collect(Collectors.toSet())));
+        }
+    }
 }

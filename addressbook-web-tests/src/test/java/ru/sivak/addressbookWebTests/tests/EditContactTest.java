@@ -4,7 +4,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Contacts;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
-import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.io.File;
 
@@ -14,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class EditContactTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
-        if (app.db().contacts().size() == 0){
+        if (app.db().contacts().size() == 0) {
             app.goTo().home();
             app.goTo().addNew();
             File photo = new File("src/test/resources/qwer.png");
@@ -35,7 +34,7 @@ public class EditContactTest extends TestBase {
         assertThat(app.contactHelper.count(), equalTo(before.size()));
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.without(editedContact).withAdded(contact)));
+        verifyContactListInUI();
     }
-
 
 }
