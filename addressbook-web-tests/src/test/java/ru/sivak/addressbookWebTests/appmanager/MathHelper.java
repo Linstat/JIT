@@ -8,8 +8,8 @@ public class MathHelper extends HelperBase {
         super(wd);
     }
 
-    public int random(int min, int max){
-        return min + (int) (Math.random()*max);
+    public int random(int min, int max) {
+        return min + (int) (Math.random() * max);
     }
 
 }

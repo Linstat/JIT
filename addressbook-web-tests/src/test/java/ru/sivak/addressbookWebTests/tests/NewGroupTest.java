@@ -1,7 +1,6 @@
 package ru.sivak.addressbookWebTests.tests;
 
 import com.thoughtworks.xstream.XStream;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Groups;
@@ -41,23 +40,25 @@ public class NewGroupTest extends TestBase {
     @Test(dataProvider = "validGroups")
     public void createNewGroup(NewGroupParameters group) {
         app.goTo().groups();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         app.group().create(group);
         assertThat(app.groupHelper.count(), equalTo(before.size() + 1));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(
-        before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+                before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        verifyContactListInUI();
     }
 
     @Test
     public void createBadNewGroup() {
         app.goTo().groups();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         NewGroupParameters group = new NewGroupParameters().withName("test'");
         app.group().create(group);
         assertThat(app.groupHelper.count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
+        verifyContactListInUI();
     }
 
 }

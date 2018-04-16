@@ -5,13 +5,12 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contact")
 @Entity
-@Table(name ="addressbook")
+@Table(name = "addressbook")
 
 public class NewContactParameters {
     @Column(name = "firstname")
@@ -194,7 +193,7 @@ public class NewContactParameters {
         return this;
     }
 
-    public NewContactParameters withId (int id){
+    public NewContactParameters withId(int id) {
         this.id = id;
         return this;
     }
@@ -212,17 +211,22 @@ public class NewContactParameters {
         return firstResult &&
                 idResult &&
                 lastResult &&
+<<<<<<< HEAD
                 groupResult &&
                 email1Result;
         }
+=======
+                groupResult;
+    }
+>>>>>>> b740f7808912a5b42caaee7d376ec892bb56c4c8
 
     private boolean checkResult(String param1, String param2) {
         if (param1 == null || param2 == null) {
             return true;
-            } else {
-                return Objects.equals(param1, param2);
-            }
+        } else {
+            return Objects.equals(param1, param2);
         }
+    }
 
     @Override
     public int hashCode() {

@@ -4,9 +4,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
-import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -46,7 +44,7 @@ public class ContactDataGenerator {
         List<NewContactParameters> contacts = generatorContacts(count);
         if (format.equals("csv")) {
             saveAsCsv(contacts, new File(file));
-        } else if (format.equals("xml")){
+        } else if (format.equals("xml")) {
             saveAsXml(contacts, new File(file));
         }
     }
@@ -56,15 +54,15 @@ public class ContactDataGenerator {
         xstream.processAnnotations(NewContactParameters.class);
         xstream.alias("contact", NewContactParameters.class);
         String xml = xstream.toXML(contacts);
-        try (Writer writer = new FileWriter(file)){
+        try (Writer writer = new FileWriter(file)) {
             writer.write(xml);
         }
     }
 
     private static void saveAsCsv(List<NewContactParameters> contacts, File file) throws IOException {
-        try (Writer writer = new FileWriter(file)){
-            for (NewContactParameters contact : contacts){
-                writer.write(String.format("%s;%s;%s;%s;\n", contact.getFirst(),contact.getLast(),contact.getMobile(),contact.getAddress()));
+        try (Writer writer = new FileWriter(file)) {
+            for (NewContactParameters contact : contacts) {
+                writer.write(String.format("%s;%s;%s;%s;\n", contact.getFirst(), contact.getLast(), contact.getMobile(), contact.getAddress()));
             }
         }
     }

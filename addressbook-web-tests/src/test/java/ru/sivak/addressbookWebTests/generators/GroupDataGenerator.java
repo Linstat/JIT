@@ -26,7 +26,7 @@ public class GroupDataGenerator {
     public String file;
 
     @Parameter(names = "-d", description = "Data format")
-     public String format;
+    public String format;
 
     public static void main(String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
@@ -44,7 +44,7 @@ public class GroupDataGenerator {
         List<NewGroupParameters> groups = generatorGroups(count);
         if (format.equals("csv")) {
             saveAsCsv(groups, new File(file));
-        } else if (format.equals("xml")){
+        } else if (format.equals("xml")) {
             saveAsXml(groups, new File(file));
         }
     }
@@ -54,13 +54,13 @@ public class GroupDataGenerator {
         xstream.processAnnotations(NewGroupParameters.class);
         xstream.alias("group", NewGroupParameters.class);
         String xml = xstream.toXML(groups);
-        try (Writer writer = new FileWriter(file)){
+        try (Writer writer = new FileWriter(file)) {
             writer.write(xml);
         }
     }
 
     private void saveAsCsv(List<NewGroupParameters> groups, File file) throws IOException {
-        try (Writer writer = new FileWriter(file)){
+        try (Writer writer = new FileWriter(file)) {
             for (NewGroupParameters group : groups) {
                 writer.write(String.format("%s;%s;%s;\n", group.getName(), group.getHead(), group.getFoot()));
             }

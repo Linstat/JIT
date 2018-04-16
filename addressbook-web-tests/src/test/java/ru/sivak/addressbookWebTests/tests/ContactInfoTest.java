@@ -18,8 +18,8 @@ public class ContactInfoTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().home();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().home();
             app.goTo().addNew();
             app.contact().create(new NewContactParameters().withFirst("test").withMobile("123").withHome("123").withWork("123"), true);
         }
@@ -28,7 +28,7 @@ public class ContactInfoTest extends TestBase {
     @Test
     public void testContactInfo() {
         app.goTo().home();
-        NewContactParameters contact = app.contact().all().iterator().next();
+        NewContactParameters contact = app.contactHelper.all().iterator().next();
         NewContactParameters contactInfoFormEditForm = app.contact().infoFormEditForm(contact);
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFormEditForm)));
         assertThat(contact.getAllEmails(), equalTo(mergeEmail(contactInfoFormEditForm)));
