@@ -208,10 +208,12 @@ public class NewContactParameters {
         boolean lastResult = checkResult(last, that.last);
         boolean firstResult = checkResult(first, that.first);
         boolean groupResult = checkResult(group, that.group);
+        boolean email1Result = checkResult(email1, that.email1);
         return firstResult &&
                 idResult &&
                 lastResult &&
-                groupResult;
+                groupResult &&
+                email1Result;
         }
 
     private boolean checkResult(String param1, String param2) {
