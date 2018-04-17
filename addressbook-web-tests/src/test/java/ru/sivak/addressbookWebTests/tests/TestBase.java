@@ -27,7 +27,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TestBase {
 
 
-    org.slf4j.Logger logger = LoggerFactory.getLogger(TestBase.class);
     protected static ApplicationManager app;
 
     static {
@@ -37,6 +36,8 @@ public class TestBase {
             e.printStackTrace();
         }
     }
+
+    org.slf4j.Logger logger = LoggerFactory.getLogger(TestBase.class);
 
     @BeforeSuite
     public void setUp() throws IOException {
@@ -59,21 +60,21 @@ public class TestBase {
     }
 
 
-    public void verifyGroupListInUI(){
-        if (Boolean.getBoolean("verifyUI")){
+    public void verifyGroupListInUI() {
+        if (Boolean.getBoolean("verifyUI")) {
             Groups dbGroups = app.db().groups();
             Groups uiGroups = app.groupHelper.all();
             assertThat(uiGroups, equalTo(dbGroups.stream()
-                .map((g)-> new NewGroupParameters().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
+                    .map((g) -> new NewGroupParameters().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet())));
         }
     }
 
     public void verifyContactListInUI() {
-        if (Boolean.getBoolean("verifyUI")){
+        if (Boolean.getBoolean("verifyUI")) {
             Contacts dbContacts = app.db().contacts();
             Contacts uiContacts = app.contactHelper.all();
             assertThat(uiContacts, equalTo(dbContacts.stream()
-                    .map((g)-> new NewContactParameters().withId(g.getId()).withFirst(g.getFirst()).withLast(g.getLast()).withGroup(g.getGroup())).collect(Collectors.toSet())));
+                    .map((g) -> new NewContactParameters().withId(g.getId()).withFirst(g.getFirst()).withLast(g.getLast())).collect(Collectors.toSet())));
         }
     }
 }

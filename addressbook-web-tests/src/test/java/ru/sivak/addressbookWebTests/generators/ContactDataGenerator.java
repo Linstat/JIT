@@ -4,7 +4,9 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.thoughtworks.xstream.XStream;
+import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
+import ru.sivak.addressbookWebTests.tests.TestBase;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,7 +19,7 @@ import java.util.List;
  * @author p.sivak.
  * @since 05.04.2018.
  */
-public class ContactDataGenerator {
+public class ContactDataGenerator extends TestBase {
 
     @Parameter(names = "-c", description = "Contact count")
     public int count;
@@ -68,6 +70,7 @@ public class ContactDataGenerator {
     }
 
     private static List<NewContactParameters> generatorContacts(int count) {
+        Groups groups = app.db().groups();
         List<NewContactParameters> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             contacts.add(new NewContactParameters().withFirst(String.format("first %s", i)).withLast(String.format("last %s", i))

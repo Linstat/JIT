@@ -4,11 +4,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("group")
 @Entity
@@ -23,6 +22,14 @@ public class NewGroupParameters {
     @Column(name = "group_footer")
     @Type(type = "text")
     private String foot;
+
+
+    @ManyToMany(mappedBy = "groups")
+    private Set<NewContactParameters> contacts = new HashSet<>();
+
+    public Set<NewContactParameters> getContacts() {
+        return new Contacts(contacts);
+    }
 
     @Override
     public boolean equals(Object o) {

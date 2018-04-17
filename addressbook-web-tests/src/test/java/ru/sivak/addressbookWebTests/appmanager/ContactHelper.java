@@ -6,11 +6,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.sivak.addressbookWebTests.model.Contacts;
+import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
+import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
-import java.util.List;
+import java.util.*;
 
 public class ContactHelper extends HelperBase {
+
+    private Contacts contactCash = null;
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -24,7 +28,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void fillNewContact(NewContactParameters newContactParameters, boolean creation) {
+    public void fillNewContact(NewContactParameters newContactParameters, boolean creationWithGroup) {
         fillField(By.name("firstname"), newContactParameters.getFirst());
         fillField(By.name("lastname"), newContactParameters.getLast());
         fillField(By.name("email"), newContactParameters.getEmail1());
@@ -33,12 +37,11 @@ public class ContactHelper extends HelperBase {
         fillField(By.name("work"), newContactParameters.getWork());
         fillField(By.name("address"), newContactParameters.getAddress());
         attach(By.name("photo"), newContactParameters.getPhoto());
-        if (creation) {
-            if (newContactParameters.getGroup() != null) {
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactParameters.getGroup());
+        if (creationWithGroup) {
+            if (newContactParameters.getGroups().size() > 0) {
+                Assert.assertTrue(newContactParameters.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactParameters.getGroups().iterator().next().getName());
             }
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
 
@@ -62,8 +65,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
     }
 
-    public void create(NewContactParameters contact, boolean creation) {
-        fillNewContact(contact, creation);
+    public void create(NewContactParameters contact, boolean creationWithGroup) {
+        fillNewContact(contact, creationWithGroup);
         clickEnter();
         contactCash = null;
         clickHomePage();
@@ -83,8 +86,6 @@ public class ContactHelper extends HelperBase {
         acceptDelete();
         contactCash = null;
     }
-
-    private Contacts contactCash = null;
 
     public Contacts all() {
         if (contactCash != null) {
@@ -128,4 +129,45 @@ public class ContactHelper extends HelperBase {
                 .withEmail1(email1).withEmail2(email2).withEmail3(email3).withAddress(address);
     }
 
+    public NewContactParameters findContactNotInGroup(Contacts contacts, Groups groups) {
+        NewContactParameters contactNotInGroup = null;
+        for (NewContactParameters contact : contacts) {
+            if (contact.getGroups().size() != groups.size()) {
+                contactNotInGroup = contact;
+                break;
+            }
+        }
+        return contactNotInGroup;
+    }
+
+    public NewContactParameters findContactsInGroup(Contacts contacts) {
+        NewContactParameters contactInGroup = null;
+        for (NewContactParameters contact : contacts) {
+            if (contact.getGroups().size() != 0) {
+                contactInGroup = contact;
+                break;
+            }
+        }
+        return contactInGroup;
+    }
+
+    public NewGroupParameters chooseGroup(NewContactParameters addedContact, Groups groups) {
+        groups.removeAll(addedContact.getGroups());
+        return groups.iterator().next();
+    }
+
+    public void addContactToGroup(NewContactParameters addedContact, NewGroupParameters toGroup) {
+        selectContactById(addedContact.getId());
+        click(By.xpath("//select[@name='to_group']"));
+        click(By.xpath("//select[@name='to_group']/option[@value='"+toGroup.getId()+"']"));
+        click(By.xpath("//input[@type='submit']"));
+    }
+
+
+    public void deleteContactFromGroup(NewContactParameters contact, NewGroupParameters deletedGroup) {
+        click(By.xpath("//form[@id='right']"));
+        click(By.xpath("//form[@id='right']/select[@name='group']/option[@value='"+deletedGroup.getId()+"']"));
+        selectContactById(contact.getId());
+        click(By.xpath("//input[@name='remove']"));
+    }
 }

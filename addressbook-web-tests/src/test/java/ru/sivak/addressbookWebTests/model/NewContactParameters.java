@@ -6,7 +6,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -26,8 +28,6 @@ public class NewContactParameters {
     @Column(name = "email3")
     @Type(type = "text")
     private String email3;
-    @Transient
-    private String group;
     @Column(name = "mobile")
     @Type(type = "text")
     private String mobile;
@@ -51,6 +51,13 @@ public class NewContactParameters {
     @Id
     @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<NewGroupParameters> groups = new HashSet<NewGroupParameters>();
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
 
     public String getFirst() {
         return first;
@@ -70,10 +77,6 @@ public class NewContactParameters {
 
     public String getEmail3() {
         return email3;
-    }
-
-    public String getGroup() {
-        return group;
     }
 
     public int getId() {
@@ -112,7 +115,7 @@ public class NewContactParameters {
                 ", email1='" + email1 + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
-                ", group='" + group + '\'' +
+                ", group='" + groups + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", home='" + home + '\'' +
                 ", work='" + work + '\'' +
@@ -188,11 +191,6 @@ public class NewContactParameters {
         return this;
     }
 
-    public NewContactParameters withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
     public NewContactParameters withId(int id) {
         this.id = id;
         return this;
@@ -206,19 +204,12 @@ public class NewContactParameters {
         boolean idResult = checkResult(Integer.toString(id), Integer.toString(that.id));
         boolean lastResult = checkResult(last, that.last);
         boolean firstResult = checkResult(first, that.first);
-        boolean groupResult = checkResult(group, that.group);
         boolean email1Result = checkResult(email1, that.email1);
         return firstResult &&
                 idResult &&
                 lastResult &&
-<<<<<<< HEAD
-                groupResult &&
                 email1Result;
         }
-=======
-                groupResult;
-    }
->>>>>>> b740f7808912a5b42caaee7d376ec892bb56c4c8
 
     private boolean checkResult(String param1, String param2) {
         if (param1 == null || param2 == null) {
@@ -231,6 +222,11 @@ public class NewContactParameters {
     @Override
     public int hashCode() {
 
-        return Objects.hash(first, last, group);
+        return Objects.hash(first, last, groups);
+    }
+
+    public NewContactParameters inGroup(NewGroupParameters group) {
+        groups.add(group);
+        return this;
     }
 }

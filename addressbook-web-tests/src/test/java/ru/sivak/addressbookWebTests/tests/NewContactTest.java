@@ -1,10 +1,13 @@
 package ru.sivak.addressbookWebTests.tests;
 
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.Contacts;
+import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
+import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,15 +33,25 @@ public class NewContactTest extends TestBase {
             }
             XStream xstream = new XStream();
             xstream.processAnnotations(NewContactParameters.class);
-            List<NewContactParameters> groups = (List<NewContactParameters>) xstream.fromXML(xml);
-            return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+            List<NewContactParameters> contacts = (List<NewContactParameters>) xstream.fromXML(xml);
+            return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+        }
+    }
+
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groups();
+            app.group().create(new NewGroupParameters().withName("test"));
         }
     }
 
     @Test(dataProvider = "validContacts")
-    public void createNewContact(NewContactParameters contact) {
+    public void createNewContact(NewContactParameters contactFromFile) {
+        Groups groups = app.db().groups();
         File photo = new File("src/test/resources/qwer.png");
-        contact.withPhoto(photo);
+        NewContactParameters contact = new NewContactParameters().inGroup(groups.iterator().next()).withPhoto(photo)
+                .withLast(contactFromFile.getLast()).withFirst(contactFromFile.getFirst()).withMobile(contactFromFile.getMobile()).withAddress(contactFromFile.getAddress());
         app.goTo().home();
         Contacts before = app.db().contacts();
         app.goTo().addNew();

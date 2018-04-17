@@ -10,7 +10,9 @@ import ru.sivak.addressbookWebTests.model.Groups;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author p.sivak.
@@ -41,5 +43,25 @@ public class DbHelper {
         session.getTransaction().commit();
         session.close();
         return new Contacts(result);
+    }
+
+    public Groups contactInGroups(NewContactParameters contact){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List <NewContactParameters> result = session.createQuery("from NewContactParameters where deprecated = '0000-00-00' and id = '"+contact.getId()+"'").list();
+        session.getTransaction().commit();
+        session.close();
+        NewContactParameters selectedContact = result.get(0);
+        return selectedContact.getGroups();
+    }
+
+    public NewContactParameters getContactById (NewContactParameters contact){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List <NewContactParameters> result = session.createQuery("from NewContactParameters where deprecated = '0000-00-00' and id = '"+contact.getId()+"'").list();
+        session.getTransaction().commit();
+        session.close();
+        NewContactParameters selectedContact = result.get(0);
+        return selectedContact;
     }
 }
