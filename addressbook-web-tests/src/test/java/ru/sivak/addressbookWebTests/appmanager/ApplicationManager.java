@@ -24,7 +24,7 @@ public class ApplicationManager {
     public MathHelper mathHelper;
     public DbHelper dbHelper;
 
-    public ApplicationManager(String browser) throws IOException {
+    public ApplicationManager(String browser){
         this.browser = browser;
         properties = new Properties();
     }

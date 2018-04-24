@@ -20,6 +20,10 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private NavigationHelper navigationHelper;
+    private LoginHelper loginHelper;
+    private DbHelper dbHelper;
+    private ChangePasswordHelper changePasswordHelper;
 
 
     public ApplicationManager(String browser) throws IOException {
@@ -80,5 +84,33 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
+    }
+
+    public NavigationHelper goTo(){
+        if (navigationHelper==null){
+            navigationHelper = new NavigationHelper(this);
+        }
+        return navigationHelper;
+    }
+
+    public LoginHelper login(){
+        if (loginHelper ==null){
+            loginHelper = new LoginHelper(this);
+        }
+        return loginHelper;
+    }
+
+    public DbHelper db(){
+        if (dbHelper==null){
+            dbHelper = new DbHelper();
+        }
+        return dbHelper;
+    }
+
+    public ChangePasswordHelper changePassword(){
+        if (changePasswordHelper==null){
+            changePasswordHelper = new ChangePasswordHelper(this);
+        }
+        return changePasswordHelper;
     }
 }
