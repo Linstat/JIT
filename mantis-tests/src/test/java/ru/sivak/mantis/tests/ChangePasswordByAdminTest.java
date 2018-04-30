@@ -8,6 +8,7 @@ import ru.sivak.mantis.model.MailMessage;
 import ru.sivak.mantis.model.User;
 import ru.sivak.mantis.model.Users;
 
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,10 +25,11 @@ public class ChangePasswordByAdminTest extends TestBase {
     }
 
     @Test
-    public void testChangePasswordByAdmin() throws IOException, MessagingException {
+    public void testChangePasswordByAdmin() throws IOException, MessagingException, ServiceException {
+        skipIfNotFixed(0000001);
         String newPassword = "changedPassword";
         app.goTo().loginPage();
-        app.login().login("administrator","root1");
+        app.login().login(app.getProperty("web.adminLogin"),app.getProperty("web.adminPass"));
         app.goTo().userPage();
         Users users = app.db().users();
         User editedUser = app.changePassword().chooseUser(users);
