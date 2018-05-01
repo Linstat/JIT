@@ -64,4 +64,8 @@ public class ContactHelper extends HelperBase {
     public boolean isContactHere() {
         return isElementPresent(By.name("selected[]"));
     }
+
+    public int getContactCount() {
+        return getCount("selected[]");
+    }
 }

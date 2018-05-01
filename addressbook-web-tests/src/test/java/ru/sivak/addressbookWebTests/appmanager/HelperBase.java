@@ -42,4 +42,8 @@ public class HelperBase {
             return false;
         }
     }
+
+    public int getCount(String name) {
+        return wd.findElements(By.name(name)).size();
+    }
 }

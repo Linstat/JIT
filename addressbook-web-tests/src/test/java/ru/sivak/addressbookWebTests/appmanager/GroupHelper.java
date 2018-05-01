@@ -2,7 +2,6 @@ package ru.sivak.addressbookWebTests.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
 public class GroupHelper extends HelperBase {
@@ -54,5 +53,9 @@ public class GroupHelper extends HelperBase {
 
     public boolean isGroupHere() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getGroupCount() {
+        return getCount("selected[]");
     }
 }
