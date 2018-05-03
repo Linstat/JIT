@@ -9,6 +9,6 @@ public class MainDistanceTest {
     public void testArea() {
         Point p1 = new Point(5,5);
         Point p2 = new Point(5,6);
-        Assert.assertEquals(Distance.distance(p1,p2),2.0);
+        Assert.assertEquals(Distance.distance(p1,p2),1.0);
     }
 }
