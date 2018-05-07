@@ -4,8 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class EditGroupTest extends TestBase {
     int random;
@@ -28,6 +27,9 @@ public class EditGroupTest extends TestBase {
         Assert.assertEquals(after.size(), before.size());
         before.remove(random);
         before.add(group);
-        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
+        Comparator<? super NewGroupParameters> byId = Comparator.comparingInt(NewGroupParameters::getId);
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before,after);
     }
 }

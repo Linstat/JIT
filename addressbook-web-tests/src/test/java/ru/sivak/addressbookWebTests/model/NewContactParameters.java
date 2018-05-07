@@ -16,6 +16,7 @@ public class NewContactParameters {
         this.mobile = mobile;
         this.email = email;
         this.group = group;
+        this.id = Integer.MAX_VALUE;
     }
 
     public NewContactParameters(int id, String first, String last, String mobile, String email, String group) {
@@ -56,25 +57,6 @@ public class NewContactParameters {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NewContactParameters that = (NewContactParameters) o;
-        return id == that.id &&
-                Objects.equals(first, that.first) &&
-                Objects.equals(last, that.last) &&
-                Objects.equals(mobile, that.mobile) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(group, that.group);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(first, last, mobile, email, group, id);
-    }
-
-    @Override
     public String toString() {
         return "NewContactParameters{" +
                 "first='" + first + '\'' +
@@ -84,5 +66,23 @@ public class NewContactParameters {
                 ", group='" + group + '\'' +
                 ", id=" + id +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewContactParameters that = (NewContactParameters) o;
+        return Objects.equals(first, that.first) &&
+                Objects.equals(last, that.last) &&
+                Objects.equals(mobile, that.mobile) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(group, that.group);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(first, last, mobile, email, group);
     }
 }

@@ -3,7 +3,9 @@ package ru.sivak.addressbookWebTests.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.sivak.addressbookWebTests.model.NewContactParameters;
+import ru.sivak.addressbookWebTests.model.NewGroupParameters;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class EditContactTest extends TestBase {
         Assert.assertEquals(after.size(), before.size());
         before.remove(random-1);
         before.add(contact);
-        Assert.assertEquals(new HashSet<Object>(before),new HashSet<Object>(after));
+        Comparator<? super NewContactParameters> byId = Comparator.comparingInt(NewContactParameters::getId);
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before,after);
     }
 }

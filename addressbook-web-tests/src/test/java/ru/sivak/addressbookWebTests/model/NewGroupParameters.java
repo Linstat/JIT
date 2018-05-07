@@ -9,21 +9,6 @@ public class NewGroupParameters {
     private int id;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NewGroupParameters that = (NewGroupParameters) o;
-        return Objects.equals(name, that.name) &&
-                Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(name, id);
-    }
-
-    @Override
     public String toString() {
         return "NewGroupParameters{" +
                 "name='" + name + '\'' +
@@ -46,7 +31,7 @@ public class NewGroupParameters {
         this.name = name;
         this.head = head;
         this.foot = foot;
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
     }
 
     public String getName() {
@@ -65,4 +50,17 @@ public class NewGroupParameters {
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewGroupParameters that = (NewGroupParameters) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name);
+    }
 }
