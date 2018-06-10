@@ -3,9 +3,7 @@
 <suite name = "Suite1" verbose="1">
     <test name="Groups">
         <classes>
-            <class name="ru.sivak.addressbookWebTests.tests.NewGroupTest"/>
             <class name="ru.sivak.addressbookWebTests.tests.EditGroupTest"/>
-            <class name="ru.sivak.addressbookWebTests.tests.DeleteGroupTest"/>
         </classes>
     </test>
 </suite>
