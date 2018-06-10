@@ -30,11 +30,7 @@ public class TestBase {
     protected static ApplicationManager app;
 
     static {
-        try {
-            app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
     }
 
     org.slf4j.Logger logger = LoggerFactory.getLogger(TestBase.class);
